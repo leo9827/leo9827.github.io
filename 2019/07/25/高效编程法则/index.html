@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="节选自《Effective Programming: More Than Writing Code》   永远都是你的错 ​    “在怨天尤人之前，我们应该先自我反省、努力把自身的问题解决了。”  ​    我们总是要处理一些困难的、捉摸不透的问题，这是一件令人绝望的事情，但是不要让绝望领着你误入歧途。作为一名谦逊的程序员，最基本的要求就是要有意识：你写的代码在任何时候出了问题，那一定都是你的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高效编程法则">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/高效编程法则/index.html">
+<meta property="og:site_name" content="Abyssal">
+<meta property="og:description" content="节选自《Effective Programming: More Than Writing Code》   永远都是你的错 ​    “在怨天尤人之前，我们应该先自我反省、努力把自身的问题解决了。”  ​    我们总是要处理一些困难的、捉摸不透的问题，这是一件令人绝望的事情，但是不要让绝望领着你误入歧途。作为一名谦逊的程序员，最基本的要求就是要有意识：你写的代码在任何时候出了问题，那一定都是你的">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-04T06:52:16.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高效编程法则">
+<meta name="twitter:description" content="节选自《Effective Programming: More Than Writing Code》   永远都是你的错 ​    “在怨天尤人之前，我们应该先自我反省、努力把自身的问题解决了。”  ​    我们总是要处理一些困难的、捉摸不透的问题，这是一件令人绝望的事情，但是不要让绝望领着你误入歧途。作为一名谦逊的程序员，最基本的要求就是要有意识：你写的代码在任何时候出了问题，那一定都是你的">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>高效编程法则</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/08/01/时序数据库学习笔记/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/07/23/杰出的程序员/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/07/25/高效编程法则/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/07/25/高效编程法则/&text=高效编程法则"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/07/25/高效编程法则/&is_video=false&description=高效编程法则"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=高效编程法则&body=Check out this article: http://yoursite.com/2019/07/25/高效编程法则/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/07/25/高效编程法则/&name=高效编程法则&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#永远都是你的错"><span class="toc-number">1.</span> <span class="toc-text">永远都是你的错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大道至简"><span class="toc-number">2.</span> <span class="toc-text">大道至简</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#避免写注释"><span class="toc-number">3.</span> <span class="toc-text">避免写注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学会读源代码"><span class="toc-number">4.</span> <span class="toc-text">学会读源代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学会提问"><span class="toc-number">5.</span> <span class="toc-text">学会提问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能致胜"><span class="toc-number">6.</span> <span class="toc-text">性能致胜</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        高效编程法则
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Abyssal</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-07-25T12:40:09.000Z" itemprop="datePublished">2019-07-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>节选自《Effective Programming: More Than Writing Code》 </p>
+</blockquote>
+<h2 id="永远都是你的错"><a href="#永远都是你的错" class="headerlink" title="永远都是你的错"></a>永远都是你的错</h2><blockquote>
+<p>​    “在怨天尤人之前，我们应该先自我反省、努力把自身的问题解决了。”</p>
+</blockquote>
+<p>​    我们总是要处理一些困难的、捉摸不透的问题，这是一件令人绝望的事情，但是不要让绝望领着你误入歧途。作为一名谦逊的程序员，最基本的要求就是要有意识：你写的代码在任何时候出了问题，<strong>那一定都是你的错。</strong></p>
+<p>​    当然，代码产权的另一面是代码责任。无论你的软件出现什么样的问题——甚至开始出错的地方根本就不是你的代码——你也应该<strong>总是假定问题出现在你的代码里</strong>，并且根据这个假设采取行动。如果你要别人接受你的软件，那你就要为它的故障承担全责。尽管——从严格意义上来说——你并不是非这么做不可。但是只有这样，<strong>你才能赢得尊敬和信任。</strong></p>
+<p>​    如果你真的渴望做一名谦逊的程序员，在你碰到问题的时候，你就应该很淡定地说：“嘿，这是我的错——让我来把它弄个水落石出。”</p>
+<h2 id="大道至简"><a href="#大道至简" class="headerlink" title="大道至简"></a>大道至简</h2><blockquote>
+<p>​    “你永远都有简化的空间。”</p>
+</blockquote>
+<p>​    代码就像一个新生儿，在被带到这个世界的时候，它是无辜而无可非议的。代码不是我们的敌人。如果你像看看真正的敌人，去照一照镜子吧，问题就在那里！</p>
+<p>​    <strong>作为一个软件开发者，你就是自己最大的敌人。你越早认识到这点，你的境况就会越好。</strong></p>
+<blockquote>
+<p>​    在编码过程中，你可以从很多维度去评价你的代码：</p>
+<ul>
+<li>代码简洁度；</li>
+<li>功能的完整性；</li>
+<li>执行速度；</li>
+<li>编码所花费的时间；</li>
+<li>健壮性；</li>
+<li>灵活性。</li>
+</ul>
+<p>​    这些维度是相互对立的。假如你花了几天的时间写出一个非常美观而迅捷的程序，这样虽然在两个维度上得到了提高，但是因为你花了几天的时间，所以在“编码所花费的时间”这一维度就落后了很多。</p>
+<p>​    那么，什么时候这样做才是值得的呢？我们该如何做这些决定呢？其实，答案非常合乎情理，也很简单，但是从来没有人好好遵从：<strong>从简洁开始，然后一句测试的结果按需提升其他的维度。</strong></p>
+</blockquote>
+<p>​    如果你不得不写代码，你也必须 <strong>从简洁开始</strong>。</p>
+<p>​    如果你热爱代码——而且爱的情真意切——那你应该惜墨如金。</p>
+<h2 id="避免写注释"><a href="#避免写注释" class="headerlink" title="避免写注释"></a>避免写注释</h2><p>​    如果用很多注释来“装饰”代码是件好事的话，那么在代码中加入大片大片的注释便是锦上添花了。对吗？事实上并不完全是这样。过犹不及，好心也会办坏事。</p>
+<p>​    事实上，开发者们似乎并不明白，其实他们的代码已经告诉我们程序是怎样工作的；我们需要注释告诉我们的是，程序为什么这样工作。代码注释已经被广泛地误解和滥用，以至于你都开始它们原本的价值——注释还有存在的必要吗？你在期待什么？</p>
+<p>​    尽管注释本身说不上是好是坏，它们却常常被用作支撑代码的“拐杖”。<strong>你应该总是专注于编写代码，而忘了还有注释这种东西的存在。</strong>这会迫使你竭尽全力使用最简单、最直白、最能进行自我说明的方式把代码写出来。</p>
+<p>​    初级开发者依靠注释来讲故事，而实际上它们应该依靠代码本身。注释是“旁白”，它们有其自身价值，但是绝不能用来代替（故事里的）情节、人物和场景。</p>
+<p>​    或许这才是关于代码注释不可告人的小秘密：<strong>要想写出好的注释，你必须是一位优秀的作家。</strong>注释跟代码不一样，它不是写给编译器看的。注释是用来和其他人交流想法的文字。</p>
+<blockquote>
+<p>​    如果你觉得你的代码在没有注释的情况下显得过于复杂、很难被人理解，那只能说明你写的代码太糟糕了。重写你的代码吧，知道它不再需要任何注释。如果经过努力，你仍然觉得注释是必需的，那你就务必加上注释。切记，小心！</p>
+<p>​                                                                                                                        - Sammy Larbi</p>
+</blockquote>
+<h2 id="学会读源代码"><a href="#学会读源代码" class="headerlink" title="学会读源代码"></a>学会读源代码</h2><p>​    就软件开发而言——所有的文档大概都是很差劲的。而且，由于为人写作比为机器写作要困难得多，恐怕在可预见的未来，文档还会继续差劲下去。对此，你基本上是无能为力的。</p>
+<p>​    除了做一件事······</p>
+<p>​    <strong><em>“Read the source，Luke”</em></strong></p>
+<p>​    <strong>不管文档怎么说，源代码才是最终的事实，是你所能找到的最好的、最确定的、最新的“文档”。</strong>这个事实永远不会改变，所以你越早接受它，你作为一名软件开发者的境况就会越好。</p>
+<p>​    没有人是为了好玩才去读别人的代码的。见鬼了，我甚至都不愿意读我自己写的代码。但是，我们需要接触到源代码，我们必须阅读别人的代码，因为只有理解了那些代码之后，我们才能把自己的事情做好。所以，请不要害怕阅读与阿代码——不管它看起来多么可怕，也不管他会把你带去何方，跟它去吧！</p>
+<h2 id="学会提问"><a href="#学会提问" class="headerlink" title="学会提问"></a>学会提问</h2><p>​    <a href="https://stackoverflow.com/help/how-to-ask-beta" target="_blank" rel="noopener">How to Ask</a></p>
+<h2 id="性能致胜"><a href="#性能致胜" class="headerlink" title="性能致胜"></a>性能致胜</h2><p>​    在开放的互联网世界里竞争，最后只会剩下两种网站：<strong>要么很快，要么已经死去。</strong></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#永远都是你的错"><span class="toc-number">1.</span> <span class="toc-text">永远都是你的错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大道至简"><span class="toc-number">2.</span> <span class="toc-text">大道至简</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#避免写注释"><span class="toc-number">3.</span> <span class="toc-text">避免写注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学会读源代码"><span class="toc-number">4.</span> <span class="toc-text">学会读源代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学会提问"><span class="toc-number">5.</span> <span class="toc-text">学会提问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能致胜"><span class="toc-number">6.</span> <span class="toc-text">性能致胜</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/07/25/高效编程法则/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/07/25/高效编程法则/&text=高效编程法则"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/07/25/高效编程法则/&is_video=false&description=高效编程法则"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=高效编程法则&body=Check out this article: http://yoursite.com/2019/07/25/高效编程法则/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/07/25/高效编程法则/&title=高效编程法则"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/07/25/高效编程法则/&name=高效编程法则&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 hong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

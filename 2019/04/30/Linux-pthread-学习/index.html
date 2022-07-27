@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="pthread简介pthread是 POSIX threads 的简称，其中POSIX是一整套 Unix的标准编程接口(stands for Portable Operating System Interface)。 官方的定义是  The POSIX thread libraries are a standards based thread API for C/C++. It allows on">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux pthread 学习">
+<meta property="og:url" content="http://yoursite.com/2019/04/30/Linux-pthread-学习/index.html">
+<meta property="og:site_name" content="Abyssal">
+<meta property="og:description" content="pthread简介pthread是 POSIX threads 的简称，其中POSIX是一整套 Unix的标准编程接口(stands for Portable Operating System Interface)。 官方的定义是  The POSIX thread libraries are a standards based thread API for C/C++. It allows on">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-15T13:34:42.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux pthread 学习">
+<meta name="twitter:description" content="pthread简介pthread是 POSIX threads 的简称，其中POSIX是一整套 Unix的标准编程接口(stands for Portable Operating System Interface)。 官方的定义是  The POSIX thread libraries are a standards based thread API for C/C++. It allows on">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Linux pthread 学习</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/05/06/20190506-ARTS/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/04/30/Linux-IPC-学习/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/30/Linux-pthread-学习/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&text=Linux pthread 学习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&is_video=false&description=Linux pthread 学习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux pthread 学习&body=Check out this article: http://yoursite.com/2019/04/30/Linux-pthread-学习/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&name=Linux pthread 学习&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#pthread简介"><span class="toc-number">1.</span> <span class="toc-text">pthread简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pthread基础"><span class="toc-number">2.</span> <span class="toc-text">pthread基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本方法"><span class="toc-number">3.</span> <span class="toc-text">基本方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步"><span class="toc-number">4.</span> <span class="toc-text">同步</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mutexes"><span class="toc-number">4.1.</span> <span class="toc-text">mutexes</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#joins"><span class="toc-number">4.2.</span> <span class="toc-text">joins</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#condition-variables"><span class="toc-number">4.3.</span> <span class="toc-text">condition variables</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他-详见参考资料"><span class="toc-number">5.</span> <span class="toc-text">其他 - 详见参考资料</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Linux pthread 学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Abyssal</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-04-30T06:35:11.000Z" itemprop="datePublished">2019-04-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="pthread简介"><a href="#pthread简介" class="headerlink" title="pthread简介"></a><code>pthread</code>简介</h4><p><code>pthread</code>是 <code>POSIX threads</code> 的简称，其中<code>POSIX</code>是一整套 <code>Unix</code>的标准编程接口(<code>stands for Portable Operating System Interface</code>)。</p>
+<p>官方的定义是</p>
+<blockquote>
+<p>The POSIX thread libraries are a standards based thread API for C/C++. It allows one to spawn a new concurrent process flow. It is most effective on multi-processor or multi-core systems where the process flow can be scheduled to run on another processor thus gaining speed through parallel or distributed processing. Threads require less overhead than “forking” or spawning a new process because the system does not initialize a new system virtual memory space and environment for the process. While most effective on a multiprocessor system, gains are also found on uniprocessor systems which exploit latency in I/O and other system functions which may halt process execution. (One thread may execute while another is waiting for I/O or some other system latency.) Parallel programming technologies such as MPI and PVM are used in a distributed computing environment while threads are limited to a single computer system. All threads within a process share the same address space. A thread is spawned by defining a function and it’s arguments which will be processed in the thread. The purpose of using the POSIX thread library in your software is to execute software faster.</p>
+</blockquote>
+<p>翻译一下</p>
+<blockquote>
+<p>POSIX线程库是用于C / C ++的基于标准的线程API。它允许产生一个新的并发流程。它在多处理器或多核系统上最有效，其中流程流可以安排在另一个处理器上运行，从而通过并行或分布式处理获得更快任务处理速度。线程比“分叉”或产生新进程所需的开销更少，因为系统不会为进程初始化新的系统虚拟内存空间和环境。虽然在多处理器系统上最有效，但在单处理器系统上也可以获得收益，这些系统利用I / O和其他可能停止进程执行的系统功能的延迟。 （一个线程可以执行而另一个线程正在等待I / O或一些其他系统延迟。）并行编程技术（如MPI和PVM）用于分布式计算环境，而线程仅限于单个计算机系统。进程中的所有线程共享相同的地址空间。通过定义一个函数及其将在线程中处理的参数来生成一个线程。在软件中使用POSIX线程库的目的是更快地执行软件。</p>
+</blockquote>
+<h4 id="pthread基础"><a href="#pthread基础" class="headerlink" title="pthread基础"></a><code>pthread</code>基础</h4><ul>
+<li>线程的操作包含<code>创建</code>,<code>终止</code>,<code>同步(连接、阻塞)</code>，<code>调度</code>，<code>数据管理</code>和<code>进程交互</code>等。</li>
+<li>线程不会维护已创建的线程列表，也不知道创建它的线程(即父线程)。</li>
+<li>进程中的线程共享相同的地址空间。</li>
+<li>同一进程中的线程共享：<ul>
+<li>流程处理</li>
+<li>大多数数据</li>
+<li>打开的文件(文件描述符)</li>
+<li>信号(<code>signal</code>)和信号处理器(<code>signal handler</code>)</li>
+<li>当前工作目录</li>
+<li>用户和用户组 ID</li>
+</ul>
+</li>
+<li>每个线程都独有的：<ul>
+<li>线程 ID</li>
+<li>寄存器集、堆栈指针</li>
+<li>本地栈(<code>stack for local variables</code>)、返回地址</li>
+<li>信号掩码(<code>signal mask</code>)</li>
+<li>优先级</li>
+<li>返回值：errno</li>
+</ul>
+</li>
+<li><code>pthread functions return &quot;0&quot; if OK.</code></li>
+</ul>
+<h4 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h4><p>基本方法有<code>pthread_create()</code> 、<code>pthread_join()</code>、<code>pthread_self()</code>、<code>pthread_exit()</code>等。</p>
+<p>下面是一个简单的例子(来源于参考资料)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">print_message_function</span><span class="params">( <span class="keyword">void</span> *ptr )</span></span>;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">     <span class="keyword">pthread_t</span> thread1, thread2;</span><br><span class="line">     <span class="keyword">char</span> *message1 = <span class="string">"Thread 1"</span>;</span><br><span class="line">     <span class="keyword">char</span> *message2 = <span class="string">"Thread 2"</span>;</span><br><span class="line">     <span class="keyword">int</span>  iret1, iret2;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Create independent threads each of which will execute function */</span></span><br><span class="line"></span><br><span class="line">     iret1 = pthread_create( &amp;thread1, <span class="literal">NULL</span>, print_message_function, (<span class="keyword">void</span>*) message1);</span><br><span class="line">     iret2 = pthread_create( &amp;thread2, <span class="literal">NULL</span>, print_message_function, (<span class="keyword">void</span>*) message2);</span><br><span class="line"></span><br><span class="line">     <span class="comment">/* Wait till threads are complete before main continues. Unless we  */</span></span><br><span class="line">     <span class="comment">/* wait we run the risk of executing an exit which will terminate   */</span></span><br><span class="line">     <span class="comment">/* the process and all threads before the threads have completed.   */</span></span><br><span class="line"></span><br><span class="line">     pthread_join( thread1, <span class="literal">NULL</span>);</span><br><span class="line">     pthread_join( thread2, <span class="literal">NULL</span>); </span><br><span class="line"></span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"Thread 1 returns: %d\n"</span>,iret1);</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"Thread 2 returns: %d\n"</span>,iret2);</span><br><span class="line">     <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">print_message_function</span><span class="params">( <span class="keyword">void</span> *ptr )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">char</span> *message;</span><br><span class="line">     message = (<span class="keyword">char</span> *) ptr;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"%s \n"</span>, message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>pthread_create()</code>API如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_create</span><span class="params">(<span class="keyword">pthread_t</span> * thread, </span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> * attr,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">void</span> * (*start_routine)(<span class="keyword">void</span> *), </span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">void</span> *arg)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>arguments：</strong></p>
+<ul>
+<li><code>thread</code> - returns the thread id. (unsigned long int defined in bits/pthreadtypes.h)</li>
+<li><code>attr</code> - Set to NULL if default thread attributes are used. (else define members of the struct <code>pthread_attr_t</code> defined in bits/pthreadtypes.h) Attributes include：<ul>
+<li><code>detached state</code></li>
+<li><code>scheduling policy</code></li>
+<li><code>inheritsched attribute</code></li>
+<li><code>scope</code></li>
+<li><code>stack address</code></li>
+<li><code>stack size</code></li>
+</ul>
+</li>
+<li><code>void * (*start_routine)</code> - pointer to the function to be threaded. Function has a single argument: pointer to void.</li>
+<li><code>*arg</code> - pointer to argument of function. To pass multiple arguments, send a pointer to a structure.</li>
+</ul>
+<h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><p><code>POSIX thread</code>库中提供了三种同步机制</p>
+<ol>
+<li><code>mutexes</code>(互斥) - 防止其他线程访问变量，这会强制线程对变量或变量集进行独占访问</li>
+<li><code>joins</code>(连接) - 使线程等待其他人(其他线程)完成(终止)</li>
+<li><code>condition variables</code>(条件变量) - 数据类型 <code>pthread_cond_t</code></li>
+</ol>
+<h5 id="mutexes"><a href="#mutexes" class="headerlink" title="mutexes"></a><code>mutexes</code></h5><blockquote>
+<p>Mutexes are used to prevent data inconsistencies due to race conditions. A race condition often occurs when two or more threads need to perform operations on the same memory area, but the results of computations depends on the order in which these operations are performed. Mutexes are used for serializing shared resources. Anytime a global resource is accessed by more than one thread the resource should have a Mutex associated with it. One can apply a mutex to protect a segment of memory (“critical region”) from other threads. Mutexes can be applied only to threads in a single process and do not work between processes as do semaphores.</p>
+</blockquote>
+<p>互斥体用户防止因为竞争条件而导致的数据不一致。当两个或者多个线程需要在同一存储区域上执行操作时，通常会发生竞争条件，但计算结果取决于执行这些操作的顺序。互斥锁用于序列化共享资源，每当多个线程访问全局资源时，该资源应具有与之关联的互斥锁。可以用互斥锁来保护一段内存(“关键区域”)。</p>
+<h5 id="joins"><a href="#joins" class="headerlink" title="joins"></a><code>joins</code></h5><blockquote>
+<p>A join is performed when one wants to wait for a thread to finish. A thread calling routine may launch multiple threads then wait for them to finish to get the results. One wait for the completion of the threads with a join.</p>
+</blockquote>
+<p>当想要等待线程完成时执行<code>join</code>。 线程调用例程可以启动多个线程，然后等待它们完成以获得结果。 等待通过<code>join</code>完成线程。</p>
+<h5 id="condition-variables"><a href="#condition-variables" class="headerlink" title="condition variables"></a><code>condition variables</code></h5><blockquote>
+<p>A condition variable is a variable of type <code>pthread_cond_t</code> and is used with the appropriate functions for waiting and later, process continuation. The condition variable mechanism allows threads to suspend execution and relinquish the processor until some condition is true. A condition variable must always be associated with a mutex to avoid a race condition created by one thread preparing to wait and another thread which may signal the condition before the first thread actually waits on it resulting in a deadlock. The thread will be perpetually waiting for a signal that is never sent. Any mutex can be used, there is no explicit link between the mutex and the condition variable.</p>
+</blockquote>
+<p>条件变量是<code>pthread_cond_t</code>类型的变量，并与适当的函数一起使用以等待和稍后的进程继续。 条件变量机制允许线程<strong>暂停执行并放弃处理器，直到某些条件为真</strong>。 条件变量必须始终与互斥锁相关联，以避免由准备等待的一个线程创建的竞争条件以及在第一个线程实际等待它之前可能发出条件信号的另一个线程导致死锁。 线程将永远等待从未发送的信号。 可以使用任何互斥锁，互斥锁和条件变量之间没有明确的链接。</p>
+<p>与条件变量一起使用的函数：</p>
+<ul>
+<li>Creating/Destroying:<ul>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_init" target="_blank" rel="noopener">pthread_cond_init</a></li>
+<li>pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</li>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_destroy" target="_blank" rel="noopener">pthread_cond_destroy</a></li>
+</ul>
+</li>
+<li>Waiting on condition:<ul>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_wait" target="_blank" rel="noopener">pthread_cond_wait</a></li>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_timedwait" target="_blank" rel="noopener">pthread_cond_timedwait</a> - place limit on how long it will block.</li>
+</ul>
+</li>
+<li>Waking thread based on condition:<ul>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_signal" target="_blank" rel="noopener">pthread_cond_signal</a></li>
+<li><a href="http://node1.yo-linux.com/cgi-bin/man2html?cgi_command=pthread_cond_broadcast" target="_blank" rel="noopener">pthread_cond_broadcast</a> - wake up all threads blocked by the specified condition variable.</li>
+</ul>
+</li>
+</ul>
+<h4 id="其他-详见参考资料"><a href="#其他-详见参考资料" class="headerlink" title="其他 - 详见参考资料"></a>其他 - 详见参考资料</h4><p><strong>参考资料</strong></p>
+<ol>
+<li><a href="https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html" target="_blank" rel="noopener">POSIX thread (pthread) libraries</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#pthread简介"><span class="toc-number">1.</span> <span class="toc-text">pthread简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pthread基础"><span class="toc-number">2.</span> <span class="toc-text">pthread基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本方法"><span class="toc-number">3.</span> <span class="toc-text">基本方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步"><span class="toc-number">4.</span> <span class="toc-text">同步</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mutexes"><span class="toc-number">4.1.</span> <span class="toc-text">mutexes</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#joins"><span class="toc-number">4.2.</span> <span class="toc-text">joins</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#condition-variables"><span class="toc-number">4.3.</span> <span class="toc-text">condition variables</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他-详见参考资料"><span class="toc-number">5.</span> <span class="toc-text">其他 - 详见参考资料</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/30/Linux-pthread-学习/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&text=Linux pthread 学习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&is_video=false&description=Linux pthread 学习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux pthread 学习&body=Check out this article: http://yoursite.com/2019/04/30/Linux-pthread-学习/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&title=Linux pthread 学习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/30/Linux-pthread-学习/&name=Linux pthread 学习&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 hong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

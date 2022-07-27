@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="最近在学习 docker，其中提到了 docker 是依赖于 namespace的，而学习了解 namespace时了解到到namesapce本质是资源隔离，而 Linux 中实现资源隔离还有 chroot这种方式，所以学习一下 chroot 什么是 chroot ？chroot 即为 &amp;#39;change root dictionary&amp;#39; 更改 root 目录。在 linux 系统中，">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 基础技术：chroot 学习">
+<meta property="og:url" content="http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/index.html">
+<meta property="og:site_name" content="Abyssal">
+<meta property="og:description" content="最近在学习 docker，其中提到了 docker 是依赖于 namespace的，而学习了解 namespace时了解到到namesapce本质是资源隔离，而 Linux 中实现资源隔离还有 chroot这种方式，所以学习一下 chroot 什么是 chroot ？chroot 即为 &amp;#39;change root dictionary&amp;#39; 更改 root 目录。在 linux 系统中，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/Abyssali/blog_images/master/directory2.jpg">
+<meta property="og:updated_time" content="2019-08-06T10:08:42.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 基础技术：chroot 学习">
+<meta name="twitter:description" content="最近在学习 docker，其中提到了 docker 是依赖于 namespace的，而学习了解 namespace时了解到到namesapce本质是资源隔离，而 Linux 中实现资源隔离还有 chroot这种方式，所以学习一下 chroot 什么是 chroot ？chroot 即为 &amp;#39;change root dictionary&amp;#39; 更改 root 目录。在 linux 系统中，">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Abyssali/blog_images/master/directory2.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Docker 基础技术：chroot 学习</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/04/29/Docker 基础技术：namespace-学习/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/04/29/高效学习/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&text=Docker 基础技术：chroot 学习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&is_video=false&description=Docker 基础技术：chroot 学习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker 基础技术：chroot 学习&body=Check out this article: http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&name=Docker 基础技术：chroot 学习&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是-chroot-？"><span class="toc-number">1.</span> <span class="toc-text">什么是 chroot ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要使用它-？"><span class="toc-number">2.</span> <span class="toc-text">为什么要使用它 ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎样使用-chroot-？"><span class="toc-number">3.</span> <span class="toc-text">怎样使用 chroot ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编写一个-chroot"><span class="toc-number">4.</span> <span class="toc-text">编写一个 chroot</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#编写-chroot-涉及的2个函数"><span class="toc-number">4.1.</span> <span class="toc-text">编写 chroot 涉及的2个函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#粗略的-chroot"><span class="toc-number">4.2.</span> <span class="toc-text">粗略的 chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#粗略-chroot-的使用"><span class="toc-number">4.3.</span> <span class="toc-text">粗略 chroot 的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#功能完整的-chroot"><span class="toc-number">4.4.</span> <span class="toc-text">功能完整的 chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#newchroot-的测试"><span class="toc-number">4.5.</span> <span class="toc-text">newchroot 的测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#资料参考"><span class="toc-number">4.6.</span> <span class="toc-text">资料参考</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Docker 基础技术：chroot 学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Abyssal</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-04-29T06:52:25.000Z" itemprop="datePublished">2019-04-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>最近在学习 <code>docker</code>，其中提到了 <code>docker</code> 是依赖于 <code>namespace</code>的，而学习了解 <code>namespace</code>时了解到到<code>namesapce</code>本质是资源隔离，而 Linux 中实现资源隔离还有 <code>chroot</code>这种方式，所以学习一下 <code>chroot</code></p>
+<h4 id="什么是-chroot-？"><a href="#什么是-chroot-？" class="headerlink" title="什么是 chroot ？"></a>什么是 <code>chroot</code> ？</h4><p><code>chroot</code> 即为 <code>&#39;change root dictionary&#39;</code> 更改 root 目录。在 linux 系统中，系统默认的根目录是 <code>/</code>，(通过修改根目录把用户<code>jail</code>到一个特定目录下)</p>
+<p><strong>而在使用 <code>chroot</code>之后，系统的目录结构将以指定的位置作为 <code>/</code> 位置。</strong></p>
+<p>图：Linux 的系统目录结构</p>
+<p><img src="https://raw.githubusercontent.com/Abyssali/blog_images/master/directory2.jpg" alt="image-20190429161045048"></p>
+<h4 id="为什么要使用它-？"><a href="#为什么要使用它-？" class="headerlink" title="为什么要使用它 ？"></a>为什么要使用它 ？</h4><p>使用 <code>chroot</code> 后，系统将以新的目录位置为根目录位置，它带来以下好处</p>
+<ol>
+<li>限制了用户权利，增加系统的安全性：<ul>
+<li>经过 <code>chroot</code>命令后，在新根下是无法访问到旧根目录和文件的，这样可以达到一定的限制访问安全性。这个一般是用户登录前进行<code>chroot</code>，来达到使用户不能访问一些特定文件的效果</li>
+</ul>
+</li>
+<li>建立一个与原系统<strong>隔离</strong>的新系统目录结构，方便用户进行开发：<ul>
+<li>使用<code>chroot</code>后，系统读取的是新根下的目录和文件，这些是与原系统完全不相关的，可以用来做与原系统不相关的独立开发</li>
+</ul>
+</li>
+<li>切换系统的根目录位置，引导 Linux 系统启动以及急救系统等<ul>
+<li><code>chroot</code>作用就是切换系统根位置，这个作用最明显的就是可以用来在系统初始引导磁盘的处理过程中，从初始 RAM 磁盘(<code>initrd</code>)切换系统根位置并执行真正的<code>init</code>；另外， 当系统出现问题时，可以切换到一个临时的系统。</li>
+</ul>
+</li>
+</ol>
+<h4 id="怎样使用-chroot-？"><a href="#怎样使用-chroot-？" class="headerlink" title="怎样使用 chroot ？"></a>怎样使用 <code>chroot</code> ？</h4><p><code>chroot</code>的标准使用方式(2种)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chroot NEWROOT [COMMADN...]</span><br><span class="line">chroot OPTION</span><br></pre></td></tr></table></figure>
+
+<p>注意：如果新目录下没有准备必要的文件，如<code>/bin</code>目录下的文件，新目录下是没有命令可执行的</p>
+<h4 id="编写一个-chroot"><a href="#编写一个-chroot" class="headerlink" title="编写一个 chroot"></a>编写一个 <code>chroot</code></h4><p>上面介绍了 chroot 及其使用，但是编写一个简单的 chroot 并不复杂，下面我们就尝试编写chroot 以此来更好的认识 chroot 的处理过程，先编写一个粗略的 chroot 然后再完善它的功能。chroot 的编写涉及了2个函数，chroot() 以及 chdir()，它们都包含在 unistd.h 头文件中。</p>
+<h5 id="编写-chroot-涉及的2个函数"><a href="#编写-chroot-涉及的2个函数" class="headerlink" title="编写 chroot 涉及的2个函数"></a>编写 chroot 涉及的2个函数</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chroot</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chdir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>chroot() 将切换参数 path 所指位置为根目录 (/)，chdir() 用来将当前的工作目录改变成以参数path 所指的目录。以此我们可以编写一个非常粗略的 <code>chroot</code>。</p>
+<h5 id="粗略的-chroot"><a href="#粗略的-chroot" class="headerlink" title="粗略的 chroot"></a>粗略的 <code>chroot</code></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    chroot(<span class="string">"."</span>);</span><br><span class="line">    chdir(<span class="string">"/"</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">char</span> *arrays[]=&#123;<span class="string">"ash"</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    execvp(<span class="string">"ash"</span>, arrays);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个粗略的 <code>chroot</code> 仅能切换当前位置为根目录，同时默认执行 ash shell，不包含任何的错误处理及警告。编写并保存代码为 <code>test.c</code>。下面的操作展示了这个<em>粗略 <code>chroot</code></em> 的使用情况，成功的进行了根目录的切换。</p>
+<h5 id="粗略-chroot-的使用"><a href="#粗略-chroot-的使用" class="headerlink" title="粗略 chroot 的使用"></a>粗略 <code>chroot</code> 的使用</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -Wall test.c -o test</span><br><span class="line"> </span><br><span class="line"># ./test</span><br><span class="line"><span class="meta"># ls</span></span><br><span class="line">ash: ls: <span class="keyword">not</span> found</span><br><span class="line"> </span><br><span class="line"><span class="meta"># busybox ls</span></span><br><span class="line">bin      etc      newhome  test     test.c</span><br></pre></td></tr></table></figure>
+
+<p>下面给出功能将近完整的 chroot ，加上了一些错误处理并新增了可执行指定命令的功能。当在没有给出 chroot 切换后要执行的命令时，默认执行 <code>/bin/sh</code>，同时检测环境以确认使用何种 shell。</p>
+<h5 id="功能完整的-chroot"><a href="#功能完整的-chroot" class="headerlink" title="功能完整的 chroot"></a>功能完整的 <code>chroot</code></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(argc&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: chroot NEWROOT [COMMAND...] \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"newroot = %s\n"</span>, argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span>(chroot(argv[<span class="number">1</span>])) &#123;</span><br><span class="line">        perror(<span class="string">"chroot"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(chdir(<span class="string">"/"</span>)) &#123;</span><br><span class="line">        perror(<span class="string">"chdir"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(argc == <span class="number">2</span>) &#123;</span><br><span class="line">        argv[<span class="number">0</span>] = getenv(<span class="string">"SHELL"</span>);</span><br><span class="line">        <span class="keyword">if</span>(!argv[<span class="number">0</span>])</span><br><span class="line">            argv[<span class="number">0</span>] = (<span class="keyword">char</span> *)<span class="string">"/bin/sh"</span>;</span><br><span class="line"> </span><br><span class="line">        argv[<span class="number">1</span>] = (<span class="keyword">char</span> *) <span class="string">"-i"</span>;</span><br><span class="line">        argv[<span class="number">2</span>] = <span class="literal">NULL</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        argv += <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    execvp (argv[<span class="number">0</span>], argv);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"chroot: cannot run command `%s`\n"</span>, *argv);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存以上代码为 <code>newchroot.c</code> 文件，编译后运行测试其功能。最后要指出的是，本文中的 <code>chroot</code> 并没有使用静态编译。如果有必要(如，在 initrd 中使用 chroot)，chroot 应该使用静态编译，若是使用动态编译，那么要拷贝相关的动态库文件到相应目录结构中。</p>
+<h5 id="newchroot-的测试"><a href="#newchroot-的测试" class="headerlink" title="newchroot 的测试"></a><code>newchroot</code> 的测试</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -Wall newchroot.c -o newchroot</span><br><span class="line"> </span><br><span class="line"><span class="comment"># ./newchroot . /bin/ash</span></span><br><span class="line">newroot = .</span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="资料参考"><a href="#资料参考" class="headerlink" title="资料参考"></a>资料参考</h5><ol>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-chroot/index.html" target="_blank" rel="noopener">理解chroot</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是-chroot-？"><span class="toc-number">1.</span> <span class="toc-text">什么是 chroot ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要使用它-？"><span class="toc-number">2.</span> <span class="toc-text">为什么要使用它 ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎样使用-chroot-？"><span class="toc-number">3.</span> <span class="toc-text">怎样使用 chroot ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编写一个-chroot"><span class="toc-number">4.</span> <span class="toc-text">编写一个 chroot</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#编写-chroot-涉及的2个函数"><span class="toc-number">4.1.</span> <span class="toc-text">编写 chroot 涉及的2个函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#粗略的-chroot"><span class="toc-number">4.2.</span> <span class="toc-text">粗略的 chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#粗略-chroot-的使用"><span class="toc-number">4.3.</span> <span class="toc-text">粗略 chroot 的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#功能完整的-chroot"><span class="toc-number">4.4.</span> <span class="toc-text">功能完整的 chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#newchroot-的测试"><span class="toc-number">4.5.</span> <span class="toc-text">newchroot 的测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#资料参考"><span class="toc-number">4.6.</span> <span class="toc-text">资料参考</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&text=Docker 基础技术：chroot 学习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&is_video=false&description=Docker 基础技术：chroot 学习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker 基础技术：chroot 学习&body=Check out this article: http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&title=Docker 基础技术：chroot 学习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/29/Docker 基础技术：chroot-学习/&name=Docker 基础技术：chroot 学习&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 hong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

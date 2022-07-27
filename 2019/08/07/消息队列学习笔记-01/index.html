@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="[TOC] 1.消息队列简述​    什么是消息队列？它的作用是什么呢？ —— 问一下万能的Wikipedia ^ ^  ​    在计算机科学中，消息队列和邮箱是用于进程间通信（IPC）或用于同一进程内的线程间通信的软件工程 组件。他们使用队列进行消息传递  - 控制或内容的传递。 ​    消息队列提供 异步 通信协议，这意味着消息的发送方和接收方不需要同时与消息队列交互。 ​    消息队列">
+<meta name="keywords" content="mq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息队列学习笔记-01">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/index.html">
+<meta property="og:site_name" content="Abyssal">
+<meta property="og:description" content="[TOC] 1.消息队列简述​    什么是消息队列？它的作用是什么呢？ —— 问一下万能的Wikipedia ^ ^  ​    在计算机科学中，消息队列和邮箱是用于进程间通信（IPC）或用于同一进程内的线程间通信的软件工程 组件。他们使用队列进行消息传递  - 控制或内容的传递。 ​    消息队列提供 异步 通信协议，这意味着消息的发送方和接收方不需要同时与消息队列交互。 ​    消息队列">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810144144388.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810155249762.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810160215925.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810163910200.png">
+<meta property="og:updated_time" content="2019-08-20T08:35:50.505Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息队列学习笔记-01">
+<meta name="twitter:description" content="[TOC] 1.消息队列简述​    什么是消息队列？它的作用是什么呢？ —— 问一下万能的Wikipedia ^ ^  ​    在计算机科学中，消息队列和邮箱是用于进程间通信（IPC）或用于同一进程内的线程间通信的软件工程 组件。他们使用队列进行消息传递  - 控制或内容的传递。 ​    消息队列提供 异步 通信协议，这意味着消息的发送方和接收方不需要同时与消息队列交互。 ​    消息队列">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/07/消息队列学习笔记-01/%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810144144388.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>消息队列学习笔记-01</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/08/05/《数据密集型应用系统设计》- 读书笔记5/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/08/07/消息队列学习笔记-01/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&text=消息队列学习笔记-01"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&is_video=false&description=消息队列学习笔记-01"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=消息队列学习笔记-01&body=Check out this article: http://yoursite.com/2019/08/07/消息队列学习笔记-01/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&name=消息队列学习笔记-01&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-消息队列简述"><span class="toc-number">1.</span> <span class="toc-text">1.消息队列简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-消息队列适合解决哪些问题？"><span class="toc-number">2.</span> <span class="toc-text">2.消息队列适合解决哪些问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-异步处理"><span class="toc-number">2.1.</span> <span class="toc-text">1.异步处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-流量控制"><span class="toc-number">2.2.</span> <span class="toc-text">2.流量控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-服务解耦"><span class="toc-number">2.3.</span> <span class="toc-text">3.服务解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-其他应用场景"><span class="toc-number">2.4.</span> <span class="toc-text">4.其他应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-消息队列的局限性"><span class="toc-number">2.5.</span> <span class="toc-text">5.消息队列的局限性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-消息队列的选择"><span class="toc-number">3.</span> <span class="toc-text">3.消息队列的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可选的主流消息队列实现"><span class="toc-number">3.1.</span> <span class="toc-text">可选的主流消息队列实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-RocketMQ"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.RocketMQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-RabbitMQ"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.RabbitMQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Kafka"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.Kafka</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Pulsar"><span class="toc-number">3.1.4.</span> <span class="toc-text">4.Pulsar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-其他选择"><span class="toc-number">3.1.5.</span> <span class="toc-text">5.其他选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-消息模型-队列与主题"><span class="toc-number">4.</span> <span class="toc-text">4.消息模型 - 队列与主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ消息模型"><span class="toc-number">4.1.</span> <span class="toc-text">RabbitMQ消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RocketMQ消息模型"><span class="toc-number">4.2.</span> <span class="toc-text">RocketMQ消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka消息模型"><span class="toc-number">4.3.</span> <span class="toc-text">Kafka消息模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-消息可靠性保证-如何确保消息不丢失"><span class="toc-number">5.</span> <span class="toc-text">5.消息可靠性保证 - 如何确保消息不丢失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的传递过程"><span class="toc-number">5.1.</span> <span class="toc-text">消息的传递过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-生产阶段"><span class="toc-number">5.1.1.</span> <span class="toc-text">1.生产阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-存储阶段"><span class="toc-number">5.1.2.</span> <span class="toc-text">2.存储阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-消费阶段"><span class="toc-number">5.1.3.</span> <span class="toc-text">3.消费阶段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-重复消息的处理-如何做好幂等性"><span class="toc-number">6.</span> <span class="toc-text">6.重复消息的处理 - 如何做好幂等性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何用幂等性处理重复消息"><span class="toc-number">6.1.</span> <span class="toc-text">如何用幂等性处理重复消息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-利用数据库唯一约束"><span class="toc-number">6.1.1.</span> <span class="toc-text">1.利用数据库唯一约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-为更新条件设置前置条件"><span class="toc-number">6.1.2.</span> <span class="toc-text">2.为更新条件设置前置条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-记录并检查操作"><span class="toc-number">6.1.3.</span> <span class="toc-text">3.记录并检查操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-消息堆积-产生原因及与处理方案"><span class="toc-number">7.</span> <span class="toc-text">7.消息堆积 - 产生原因及与处理方案</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        消息队列学习笔记-01
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Abyssal</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-08-07T07:51:51.000Z" itemprop="datePublished">2019-08-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/MQ/">MQ</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/mq/">mq</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>[TOC]</p>
+<h2 id="1-消息队列简述"><a href="#1-消息队列简述" class="headerlink" title="1.消息队列简述"></a>1.消息队列简述</h2><p>​    什么是消息队列？它的作用是什么呢？ —— 问一下万能的Wikipedia ^ ^</p>
+<blockquote>
+<p>​    在<a href="https://en.wikipedia.org/wiki/Computer_science" target="_blank" rel="noopener">计算机科学中</a>，<strong>消息队列</strong>和<strong>邮箱</strong>是用于<a href="https://en.wikipedia.org/wiki/Inter-process_communication" target="_blank" rel="noopener">进程间通信</a>（IPC）或用于同一进程内的<a href="https://en.wikipedia.org/wiki/Thread_(computing)" target="_blank" rel="noopener">线程</a>间通信的<a href="https://en.wikipedia.org/wiki/Software_engineering" target="_blank" rel="noopener">软件工程</a> <a href="https://en.wikipedia.org/wiki/Software_componentry" target="_blank" rel="noopener">组件</a>。他们使用<a href="https://en.wikipedia.org/wiki/Queue_(data_structure)" target="_blank" rel="noopener">队列</a>进行<a href="https://en.wikipedia.org/wiki/Message_(computer_science)" target="_blank" rel="noopener">消息传递</a>  - 控制或内容的传递。</p>
+<p>​    消息队列提供 <a href="https://en.wikipedia.org/wiki/Asynchronous_communication" target="_blank" rel="noopener">异步</a> <a href="https://en.wikipedia.org/wiki/Communications_protocol" target="_blank" rel="noopener">通信协议</a>，这意味着消息的发送方和接收方不需要同时与消息队列交互。</p>
+<p>​    消息队列的许多实现在内部起作用：在<a href="https://en.wikipedia.org/wiki/Operating_system" target="_blank" rel="noopener">操作系统</a>内或在<a href="https://en.wikipedia.org/wiki/Application_software" target="_blank" rel="noopener">应用程序内</a>。这些队列仅用于该<a href="https://en.wikipedia.org/wiki/System" target="_blank" rel="noopener">系统</a>的目的。<a href="https://en.wikipedia.org/wiki/Message_queue#cite_note-1" target="_blank" rel="noopener">[1] </a><a href="https://en.wikipedia.org/wiki/Message_queue#cite_note-2" target="_blank" rel="noopener">[2] </a><a href="https://en.wikipedia.org/wiki/Message_queue#cite_note-3" target="_blank" rel="noopener">[3]</a></p>
+<p>​    其他实现允许在不同计算机系统之间传递消息，可能连接多个应用程序和多个操作系统。<a href="https://en.wikipedia.org/wiki/Message_queue#cite_note-4" target="_blank" rel="noopener">[4]</a> 这些消息排队系统通常提供增强的<a href="https://en.wikipedia.org/wiki/Resilience_(network)" target="_blank" rel="noopener">弹性</a>功能，以确保在系统发生故障时消息不会“丢失”。这种消息队列也称为<a href="https://en.wikipedia.org/wiki/Message-oriented_middleware" target="_blank" rel="noopener">面向消息的中间件</a>。</p>
+<p>——wikipedia <a href="https://en.wikipedia.org/wiki/Message_queue" target="_blank" rel="noopener">message queue</a></p>
+</blockquote>
+<h2 id="2-消息队列适合解决哪些问题？"><a href="#2-消息队列适合解决哪些问题？" class="headerlink" title="2.消息队列适合解决哪些问题？"></a>2.消息队列适合解决哪些问题？</h2><h3 id="1-异步处理"><a href="#1-异步处理" class="headerlink" title="1.异步处理"></a>1.异步处理</h3><p>​    消息队列天生特性——异步，可以被用于实现服务的异步处理：1.可以更快的返回结果；2.减少等待。</p>
+<h3 id="2-流量控制"><a href="#2-流量控制" class="headerlink" title="2.流量控制"></a>2.流量控制</h3><p>​    消息队列另一项特性——队列性，可以用于服务的流量控制，当服务请求流量突增超过系统处理上限时，利用队列的特性，将请求入队，系统消费消息队列中请求，可以达到请求与服务之间隔离的效果：系统能够根据下游的处理能力自动调节流量，达到“削峰填谷”的作用。但是需要付出代价：1.增加了调用链路长度；2.上下游系统都要将同步改为异步。</p>
+<p>​    更简单的流量控制方法：<a href="https://en.wikipedia.org/wiki/Token_bucket" target="_blank" rel="noopener">令牌桶</a>——使用消息队列作为令牌桶来进行更简单的流量控制。</p>
+<h3 id="3-服务解耦"><a href="#3-服务解耦" class="headerlink" title="3.服务解耦"></a>3.服务解耦</h3><p>​    当系统的下游系统越来越多时，需要花费很多精力来处理系统与下游系统的变化，消息队列可以用来解决类似的系统耦合过于紧密的问题，当系统与下游系统交互依赖于消息队列后，无论增加、减少下游系统或者下游系统的需求变化，系统都无需更改。</p>
+<h3 id="4-其他应用场景"><a href="#4-其他应用场景" class="headerlink" title="4.其他应用场景"></a>4.其他应用场景</h3><ol>
+<li>作为 发布/订阅 系统；</li>
+<li>连接流计算任务和数据；</li>
+<li>广播消息给大量消费者。</li>
+</ol>
+<h3 id="5-消息队列的局限性"><a href="#5-消息队列的局限性" class="headerlink" title="5.消息队列的局限性"></a>5.消息队列的局限性</h3><ul>
+<li>引入消息队列后的所附带的延迟；</li>
+<li>增加了系统的复杂度；</li>
+<li>数据不一致的问题。</li>
+</ul>
+<h2 id="3-消息队列的选择"><a href="#3-消息队列的选择" class="headerlink" title="3.消息队列的选择"></a>3.消息队列的选择</h2><blockquote>
+<p>“没有银弹”</p>
+</blockquote>
+<p>​    在消息队列的选择上，每种消息队列的实现都具有不同的特性（优势与劣势，没有最好的消息队列，只有合适的消息队列。但是消息队列必须具备以下性质：</p>
+<ol>
+<li>消息的可靠传递：确保消息不丢失；</li>
+<li>高可用：支持集群，确保不会因为某个/某些节点宕机导致整个消息队列服务不可用；</li>
+<li>高性能：具备足够好的性能，能够满足绝大部分场景的性能要求。</li>
+</ol>
+<h3 id="可选的主流消息队列实现"><a href="#可选的主流消息队列实现" class="headerlink" title="可选的主流消息队列实现"></a>可选的主流消息队列实现</h3><h4 id="1-RocketMQ"><a href="#1-RocketMQ" class="headerlink" title="1.RocketMQ"></a>1.RocketMQ</h4><p>​    使用Java开发，由阿里巴巴在2012年开源，后捐赠给 <a href="https://www.apache.org/" target="_blank" rel="noopener">Apache Software Foundation</a>，2017正式毕业成为 Apache 的顶级项目 <a href="http://rocketmq.apache.org/" target="_blank" rel="noopener">Apache RocketMQ</a>。阿里内部也是用 RocketMQ 来支撑其业务，多次经历“双十一”考验，它的性能、稳定性、可靠性都是值得信赖的。</p>
+<p>​    RocketMQ 对在线业务的响应延时做了优化，<strong>如果你的应用场景在意响应延时，那RocketMQ是很好的选择。</strong></p>
+<h4 id="2-RabbitMQ"><a href="#2-RabbitMQ" class="headerlink" title="2.RabbitMQ"></a>2.RabbitMQ</h4><p>​    <a href="https://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ</a> 是老牌消息队列，使用Erlang编写，实现了 <a href="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol" target="_blank" rel="noopener">AMQP</a> 协议，它设计之初是为了电信行业系统间提供可靠通信。</p>
+<p>​    RabbitMQ 号称世界上使用最广泛的开源消息队列，使用率是否世界第一无法统计，但它绝对是最流行的消息中间件之一。</p>
+<p>​    RabbitMQ 支持多种编程语言，如果你正在使用一种冷门语言而正需要一个消息队列时，它可能是一个非常好的选择。</p>
+<p>​    RabbitMQ 的 Slogan —— Messaging that just works，很明确的表明了 RabbitMQ 的特点：开箱即用，轻量、迅捷，非常容易部署和使用，灵活的路由配置。</p>
+<p>​    但是RabbitMQ存在如下问题：</p>
+<p>​    第一个问题是，RabbitMQ 对消息堆积支持很不好，因为它的设计理念里面，消息队列是一个管道（pipeline），大量的消息堆积并不是一个正常情况，如果有大量的消息堆积，RabbitMQ的性能会急剧下降。</p>
+<p>​    第二个问题是，RabbitMQ 的性能是介绍的这几种消息队列中最差的，它大概每秒钟可处理几万到十几万条消息，这个性能足够应付大多数场景了，<strong>如果你对性能要求很高，建议不要选用 RabbitMQ。</strong></p>
+<p>​    第三个问题是，RabbitMQ 是 Erlang 编写的，这个语言不仅小众而且学习曲线非常陡峭，如果想针对 RabbitMQ 做一些扩展或者二次开发，成本很高。</p>
+<h4 id="3-Kafka"><a href="#3-Kafka" class="headerlink" title="3.Kafka"></a>3.Kafka</h4><p>​    <a href="https://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a> 最早由 Linkedin 开发，目前也是 Apache 顶级项目，设计之初是为了<strong>处理海量日志</strong>。</p>
+<p>​    Kafka 的早期版本，为了性能在设计方面牺牲了可靠性与集群等，这些牺牲对于处理海量日志这个特定场景是可以接受的，随后的几年里，Kafka 逐渐补齐了这些短板，<strong>当下的 Kafka 已经是一个非常成熟的消息队列产品，无论是数据的可靠性、稳定性和功能特性方面都可以满足大多数场景</strong>。</p>
+<p>​    <strong>Kafka 与周边生态的兼容性是最好的没有之一，尤其是在大数据和流计算领域，几乎所有的相关开源软件系统都会优先支持Kafka。</strong></p>
+<p>​    Kafka 使用 Scala 和 Java 开发，设计上大量使用了<strong>批量</strong>和<strong>异步</strong>的思想，这种设计使得 kafka 能做到极致的性能。Kafka的性能，尤其是异步收发，是三者中最好的。但是 Kafka 这种异步批量的设计带来的<strong>副作用</strong>是：它的同步收发消息的响应延迟比较高，因为Kafka的很多地方都是<strong>“攒一波再一起处理”</strong>的设计，所以 <strong>Kafka 不太适合在线低延迟的业务场景。</strong></p>
+<h4 id="4-Pulsar"><a href="#4-Pulsar" class="headerlink" title="4.Pulsar"></a>4.Pulsar</h4><p>​    <a href="https://pulsar.apache.org/" target="_blank" rel="noopener">Pulsar</a> 是一个新兴的开源消息队列产品，最早由 Yahoo 开发，目前还在成长期，流行度和成熟度不高，与其他消息队列最大的不同之处在于 Pulsar 采用了存储和计算分离的设计，它有可能会引领未来消息队列的一个发展方向，建议关注。</p>
+<h4 id="5-其他选择"><a href="#5-其他选择" class="headerlink" title="5.其他选择"></a>5.其他选择</h4><p>​    ActiveMQ：最老牌的消息队列，与现代消息队列差距明显，唯一用处：兼容老系统。</p>
+<p>​    ZeroMQ：严格说它并不能称为消息队列，它是一个基于消息队列的多线程网络库。</p>
+<h2 id="4-消息模型-队列与主题"><a href="#4-消息模型-队列与主题" class="headerlink" title="4.消息模型 - 队列与主题"></a>4.消息模型 - 队列与主题</h2><p>​    在计算机领域， “队列（queue）”是一种数据结构，有完整而严格的定义，Wikipedia中的定义如下：</p>
+<blockquote>
+<p>​    <strong>队列</strong>，又称为<strong>伫列</strong>（queue），是<a href="https://zh.wikipedia.org/wiki/先進先出" target="_blank" rel="noopener">先进先出</a>（FIFO, First-In-First-Out）的<a href="https://zh.wikipedia.org/wiki/线性表" target="_blank" rel="noopener">线性表</a>。在具体应用中通常用<a href="https://zh.wikipedia.org/wiki/链表" target="_blank" rel="noopener">链表</a>或者<a href="https://zh.wikipedia.org/wiki/数组" target="_blank" rel="noopener">数组</a>来实现。队列只允许在后端（称为<em>rear</em>）进行插入操作，在前端（称为<em>front</em>）进行删除操作。</p>
+<p>​    ——<a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%88%97" target="_blank" rel="noopener">Wikipedia</a></p>
+</blockquote>
+<p>​    <strong>在消息队列的设计之处，就是按照“队列”的数据结构来设计的（这里隐含一个点就是需要保证消息是严格有序的）。</strong>这就产生了最初的消息模型：<strong>队列模型。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cosumer &lt;- [message queue] &lt;- producer</span><br></pre></td></tr></table></figure>
+
+<p>​    如果有多个生产者同时写入一个队列，这个队列可消费到的消息就是这些生产者生产的消息的合集。消息的顺序就是吸入的顺序。</p>
+<p>​    如果有多个消费者同时接收一个队列，这些消费者实际上是竞争关系，每个消费者只能接受到队列中的一部分消息——也就是说一条消息只能被一个消费者消费。</p>
+<p>​    此时，如果想要将一份消息分发给多个消费者（或可认为每个消费者都能接受到生产者（可以是多个）生产的全量消息），单个队列是无法满足需求的。一个可行的解决方案是：为每个消费者创建一个单独的对立，生产者生产时将消息同时分发到多个队列（这样也会带来新的问题，如生产者压力增大）。</p>
+<p>​    由此<strong>演化</strong>出了新的消息模型：<strong>“发布 - 订阅模型（Publish - Subscribe Parttern)”</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">										- &gt; subscriber1</span><br><span class="line">									/ </span><br><span class="line">publisher -&gt; topic     </span><br><span class="line">									\</span><br><span class="line">										- &gt; subscriber2</span><br></pre></td></tr></table></figure>
+
+<p>​    实际上，在发布 - 订阅模型中，如果只有一个订阅者，那它和队列模型基本是一样的，也就是说，发布-订阅模型是可以兼容队列模型的。</p>
+<p>​    在很长一段时间内，队列模型和发布 - 订阅模型是并存的，但是仔细对比两种模型：生产者和发布者，消费者和订阅者，队列和主题，并没有本质的区别，只是角色名不同。<strong>它们最大的区别在于：一份消息数据能不能被消费多次（或多个消费者同时消费）。</strong></p>
+<p>​    现代消息队列实现使用的消息模型大多是这种发布 - 订阅模型，也有例外 - RabbitMQ</p>
+<h3 id="RabbitMQ消息模型"><a href="#RabbitMQ消息模型" class="headerlink" title="RabbitMQ消息模型"></a>RabbitMQ消息模型</h3><p>​    它仍然坚持使用队列模型，它解决多个消费者问题的方案是它提供了一个 Exchange 模块，在 RabbitMQ 中，Exchange 位于生产者和队列之间，生产者并不关心将消息发送到哪个队列，而是将消息发送给 Exchange ，由 Exchange 上配置的策略来决定将消息投递到哪些队列中。</p>
+<p><img src="%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810144144388.png" alt="image-20190810144144388"></p>
+<p>​    同一份消息如果需要被多个消费者消费，需要配置 Exchange 将消息发送到多个队列，每个队列存放一份完整的消息数据，这算是一种“发布 - 订阅模型”的变相实现。</p>
+<h3 id="RocketMQ消息模型"><a href="#RocketMQ消息模型" class="headerlink" title="RocketMQ消息模型"></a>RocketMQ消息模型</h3><p>​    RocketMQ 使用的消息模型是标准的发布 - 订阅模型，但是也存在队列的概念，并且队列在 RocketMQ 中是一个非常重要的概念。</p>
+<p>​    现代消息队列实现几乎都使用<strong>“请求 - 确认”</strong>机制来确保消息不会在传递过程中由于网络等故障丢失：</p>
+<p>​    在生产端，生产者将消息发给服务端，服务端在收到消息并将消息写入主题或者队列后，会返回生产者消息已经写入的确认响应，如果生产者没有收到确认响应，则需要重发消息；</p>
+<p>​    在消费端，消费者在收到消息并完成自己的处理逻辑后，会给服务端返回消费完成的确认响应，服务端只有在收到消费完成的确认响应后才会认为一条消息被消费成功，否则它会重复消息给消费者，直到收到对应的消费成功确认。</p>
+<p>​    这个确认机制很好的保证了消息在传递过程中的可靠性，但是会引入一个新的问题：为了保证消息的有序性，在一条消息在被成功消费之前，下一条消息是不能被消费的 —— 也就是说，每个主题在任意的时刻至多只能有一个消费者实例在消费，这样是无法通过水平扩展消费者的数量来提升消费端的处理消息的性能，为了解决这个问题，RocketMQ 在主题下面增加了队列的概念。</p>
+<p>​    <strong>每个主题包含多个队列，通过多个队列来实现多实例并行生产和消费。</strong>需要注意的一点是，<strong>RocketMQ 只保证队列上的消息有序性，主题层面是无法保证的。</strong></p>
+<p>​    在RocketMQ 中，消费者是以<strong>消费者组（Consumer Group）</strong>来体现的。每个消费者组都消费主题中一份完整的消息，不同的消费者组的消费进度互影响。</p>
+<p>​    一个消费者组包含多个消费者，多个消费者是竞争关系，每个消费者消费负责消费部份消息。</p>
+<p>​    在 Topic 的消费过程中，由于消息需要提供给多个消费者组进行多次消费，所以消费完的消息不会被立即删除，RocketMQ 为每个消费者组在每个队列上维护一个当前组消费偏移量（Consumer Offset）记录当前组消费消息的进度。</p>
+<p><img src="%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810155249762.png" alt="image-20190810155249762">    </p>
+<h3 id="Kafka消息模型"><a href="#Kafka消息模型" class="headerlink" title="Kafka消息模型"></a>Kafka消息模型</h3><p>​    Kafka 的消息模型和 RocketMQ 的完全是一样的，唯一的区别是：RocketMQ 中队列的概念在 Kafka 中对应的名称是<strong>“分区（Partition）”</strong>，其功能是完全一样的。</p>
+<p><img src="%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810160215925.png" alt="image-20190810160215925">    </p>
+<h2 id="5-消息可靠性保证-如何确保消息不丢失"><a href="#5-消息可靠性保证-如何确保消息不丢失" class="headerlink" title="5.消息可靠性保证 - 如何确保消息不丢失"></a>5.消息可靠性保证 - 如何确保消息不丢失</h2><p>​    首先来看一下消息在传递过程中的几个阶段，哪些阶段会有丢失的可能，应该如何避免。</p>
+<p>​    <img src="%E7%B4%A2%E5%BC%95%E6%8E%A2%E7%A9%B6-%E9%87%8D%E5%A4%8D%E5%88%97%E7%B4%A2%E5%BC%95/image-20190810163910200.png" alt="image-20190810163910200"></p>
+<h3 id="消息的传递过程"><a href="#消息的传递过程" class="headerlink" title="消息的传递过程"></a>消息的传递过程</h3><h4 id="1-生产阶段"><a href="#1-生产阶段" class="headerlink" title="1.生产阶段"></a>1.生产阶段</h4><p>​    在这个阶段，通常使用请求-确认机制来确认消息已经成功发送，如果这里有丢失消息，原因可能是消息并未发送成功，客户端还未接受到服务端的确认或者超时/异常未正确处理导致的，解决方案是检查服务端的确认结果和正确的处理服务端确认超时或确认异常（使用重试机制）即可避免消息丢失（消息发送不成功）。</p>
+<h4 id="2-存储阶段"><a href="#2-存储阶段" class="headerlink" title="2.存储阶段"></a>2.存储阶段</h4><p>​    在正常情况下此阶段是不会丢失消息的，但是如果 Broker 出现了故障或者某个挂掉了，还是可能丢失消息的，这取决于消息队列实现自己如何实现消息可靠性。    </p>
+<p>​    如果对 Broker 可靠性的要求比较高，需要针对 Broker 进行参数配置来避免因为宕机等原因导致消息丢失。</p>
+<p>​    对于集群式部署，消息队列如何实现消息可靠性的问题和细节很多，这个详细记录在后面的笔记中。</p>
+<h4 id="3-消费阶段"><a href="#3-消费阶段" class="headerlink" title="3.消费阶段"></a>3.消费阶段</h4><p>​    消息在消费阶段的处理和生产阶段一样，使用请求-确认机制来确认消息已经消费成功，这里需要注意的一点是：<strong>消费端务必在接收到消息后将业务处理完毕再向服务端确认消息消费成功（将业务逻辑和消息消费成功看作一个事务，要么都成功，要么都不成功）。</strong></p>
+<h2 id="6-重复消息的处理-如何做好幂等性"><a href="#6-重复消息的处理-如何做好幂等性" class="headerlink" title="6.重复消息的处理 - 如何做好幂等性"></a>6.重复消息的处理 - 如何做好幂等性</h2><p>​    一句话来定义重复消息的解决方案： 做好消息消费的幂等性。</p>
+<p>​    首先，消息重复的情况是不可避免的，MQTT 协议对传递消息提供了三种服务质量标准，从低到高依次是：</p>
+<ul>
+<li><strong>At most once：</strong>至多一次，消息在传递时，<strong>最多</strong>被送达一次，没有可靠性保证，允许丢失消息。</li>
+<li><strong>At least once：</strong>至少一次，消息在传递时，<strong>最少</strong>被送达一次，不允许丢失消息，允许重复消息。</li>
+<li><strong>Exactly once：</strong>恰好一次，消息在传递时，<strong>只会</strong>被送达一次，不允许丢失也不允许重复。</li>
+</ul>
+<p>​    这个标准也适用于所有的消息队列，现在大部分队列提供的服务质量都是 <strong>At least once</strong>，所以消费消息时，必须处理好重复消息的消费 —— 幂等性。</p>
+<h3 id="如何用幂等性处理重复消息"><a href="#如何用幂等性处理重复消息" class="headerlink" title="如何用幂等性处理重复消息"></a>如何用幂等性处理重复消息</h3><p>​    从实现上来说，最好的方式是<strong>从业务逻辑设计上入手，将消费的业务逻辑设计成具备幂等性的操作。</strong>这里是几种方案：</p>
+<h4 id="1-利用数据库唯一约束"><a href="#1-利用数据库唯一约束" class="headerlink" title="1.利用数据库唯一约束"></a>1.利用数据库唯一约束</h4><p>​    一种最简单的思路是将消息和数据库中的一个唯一约束绑定，是否重复依赖于是否已存在一个唯一键。</p>
+<h4 id="2-为更新条件设置前置条件"><a href="#2-为更新条件设置前置条件" class="headerlink" title="2.为更新条件设置前置条件"></a>2.为更新条件设置前置条件</h4><p>​    另一种思路是，给数据变更设置一个前置条件，如果满足条件就更新，否则不更新，更新数据时，同时变更前置条件中需要判断的数据。</p>
+<h4 id="3-记录并检查操作"><a href="#3-记录并检查操作" class="headerlink" title="3.记录并检查操作"></a>3.记录并检查操作</h4><p>记录并检查操作，也称为“Token 机制或者 GUID（全局唯一 ID）机制”，实现思路是：在执行数据更新操作之前，先检查是否执行过这个更新操作。</p>
+<h2 id="7-消息堆积-产生原因及与处理方案"><a href="#7-消息堆积-产生原因及与处理方案" class="headerlink" title="7.消息堆积 - 产生原因及与处理方案"></a>7.消息堆积 - 产生原因及与处理方案</h2><p>​    消息堆积本属于正常现象，因为消息队列可以将消息暂存起来，但是如果消息堆积的越来越多，消费速度赶不上生产速度，那么再大的消息队列存储都会被填满，造成消息队列服务不可用。</p>
+<p>这里要注意的点就是在设计之处，一定要保证消息的消费速度（消费端的消费性能） &gt;  生产速度（生产端的生产性能），这样消息队列才能健康的持续运行。</p>
+<p>​    除了上面的情况，消息堆积的可能性还有很多种，有可能是业务量突然增加，导致段时间内产生大量的消息。短时间内的消息堆积可能属于正常情况，但是这种情况如果持续时间过长就可能导致各种问题，所以，需要监控系统来监控消息队列服务的堆积情况，针对情况来处理，如果需要扩展消费者就扩展消费者，如果无法扩展就需要考虑将系统降级，降低生产速度。</p>
+<p>​    还有一些特殊情况，比如从监控来看，消费速度和生产速度都没有波动，但消息逐渐堆积起来，此时可能需要检查一下消费端，是否出现了一条消息消费失败导致反复消费。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-消息队列简述"><span class="toc-number">1.</span> <span class="toc-text">1.消息队列简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-消息队列适合解决哪些问题？"><span class="toc-number">2.</span> <span class="toc-text">2.消息队列适合解决哪些问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-异步处理"><span class="toc-number">2.1.</span> <span class="toc-text">1.异步处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-流量控制"><span class="toc-number">2.2.</span> <span class="toc-text">2.流量控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-服务解耦"><span class="toc-number">2.3.</span> <span class="toc-text">3.服务解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-其他应用场景"><span class="toc-number">2.4.</span> <span class="toc-text">4.其他应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-消息队列的局限性"><span class="toc-number">2.5.</span> <span class="toc-text">5.消息队列的局限性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-消息队列的选择"><span class="toc-number">3.</span> <span class="toc-text">3.消息队列的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可选的主流消息队列实现"><span class="toc-number">3.1.</span> <span class="toc-text">可选的主流消息队列实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-RocketMQ"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.RocketMQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-RabbitMQ"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.RabbitMQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Kafka"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.Kafka</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Pulsar"><span class="toc-number">3.1.4.</span> <span class="toc-text">4.Pulsar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-其他选择"><span class="toc-number">3.1.5.</span> <span class="toc-text">5.其他选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-消息模型-队列与主题"><span class="toc-number">4.</span> <span class="toc-text">4.消息模型 - 队列与主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ消息模型"><span class="toc-number">4.1.</span> <span class="toc-text">RabbitMQ消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RocketMQ消息模型"><span class="toc-number">4.2.</span> <span class="toc-text">RocketMQ消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka消息模型"><span class="toc-number">4.3.</span> <span class="toc-text">Kafka消息模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-消息可靠性保证-如何确保消息不丢失"><span class="toc-number">5.</span> <span class="toc-text">5.消息可靠性保证 - 如何确保消息不丢失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的传递过程"><span class="toc-number">5.1.</span> <span class="toc-text">消息的传递过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-生产阶段"><span class="toc-number">5.1.1.</span> <span class="toc-text">1.生产阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-存储阶段"><span class="toc-number">5.1.2.</span> <span class="toc-text">2.存储阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-消费阶段"><span class="toc-number">5.1.3.</span> <span class="toc-text">3.消费阶段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-重复消息的处理-如何做好幂等性"><span class="toc-number">6.</span> <span class="toc-text">6.重复消息的处理 - 如何做好幂等性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何用幂等性处理重复消息"><span class="toc-number">6.1.</span> <span class="toc-text">如何用幂等性处理重复消息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-利用数据库唯一约束"><span class="toc-number">6.1.1.</span> <span class="toc-text">1.利用数据库唯一约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-为更新条件设置前置条件"><span class="toc-number">6.1.2.</span> <span class="toc-text">2.为更新条件设置前置条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-记录并检查操作"><span class="toc-number">6.1.3.</span> <span class="toc-text">3.记录并检查操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-消息堆积-产生原因及与处理方案"><span class="toc-number">7.</span> <span class="toc-text">7.消息堆积 - 产生原因及与处理方案</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/08/07/消息队列学习笔记-01/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&text=消息队列学习笔记-01"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&is_video=false&description=消息队列学习笔记-01"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=消息队列学习笔记-01&body=Check out this article: http://yoursite.com/2019/08/07/消息队列学习笔记-01/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&title=消息队列学习笔记-01"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/08/07/消息队列学习笔记-01/&name=消息队列学习笔记-01&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 hong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Abyssali">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
