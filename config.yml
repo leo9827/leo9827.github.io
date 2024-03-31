@@ -49,7 +49,9 @@ params:
       category_id: DIC_kwDOLn0ev84CeWrD
       mapping: pathname
       position: top
-      lang: enzh-CN # pick a language from https://github.com/giscus/giscus/tree/main/locales
+      lang: zh-CN
+    utteranc:
+      enable: false
   analytics:
     google:
       SiteVerificationTag: G-NPENSFQ4H5
