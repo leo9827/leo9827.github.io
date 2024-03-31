@@ -1,12 +1,14 @@
 ---
 title: 'How to study'
-description: "四种学习方法，如何快速上手一个领域"
 date: 2024-03-28T22:38:54+08:00
 tags: []
 series: []
 featured: true
 draft: true
 ---
+如何快速上手一个领域? 常用学习方法
+
+<!--more-->
 
 ## 学习方法
 [费曼学习法](https://wiki.mbalib.com/zh-tw/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95)：把你学的东西**讲给别人听**，能讲清楚就是学会了。

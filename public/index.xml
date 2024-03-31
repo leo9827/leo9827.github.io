@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>leo9827</title>
     <link>http://localhost:1313/</link>
     <description>Recent content on leo9827</description>
-    <image>
-      <title>leo9827</title>
-      <url>http://localhost:1313/images/papermod-cover.png</url>
-      <link>http://localhost:1313/images/papermod-cover.png</link>
-    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 31 Mar 2024 16:22:11 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Sun, 31 Mar 2024 16:22:11 +0800</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>&lt;p&gt;Here is summary.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>First</title>
-      <link>http://localhost:1313/blog/first/</link>
-      <pubDate>Thu, 28 Mar 2024 22:38:54 +0800</pubDate>
-      <guid>http://localhost:1313/blog/first/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Thu, 28 Mar 2024 22:38:54 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to study</title>
       <link>http://localhost:1313/blog/studying/</link>
       <pubDate>Thu, 28 Mar 2024 22:38:54 +0800</pubDate>
+      
       <guid>http://localhost:1313/blog/studying/</guid>
-      <description>四种学习方法，如何快速上手一个领域</description>
+      <description>&lt;p&gt;如何快速上手一个领域? 常用学习方法&lt;/p&gt;
+&lt;h2 id=&#34;学习方法&#34;&gt;学习方法&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://wiki.mbalib.com/zh-tw/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95&#34;&gt;费曼学习法&lt;/a&gt;：把你学的东西&lt;strong&gt;讲给别人听&lt;/strong&gt;，能讲清楚就是学会了。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/99450064&#34;&gt;西蒙学习法&lt;/a&gt;：&lt;strong&gt;确定&lt;/strong&gt;学习目标，&lt;strong&gt;拆分&lt;/strong&gt;目标，6 个月能精通任意领域。&lt;/p&gt;
+&lt;p&gt;番茄学习法：&lt;strong&gt;规划&lt;/strong&gt;学习和休息时间，定闹钟。&lt;/p&gt;
+&lt;p&gt;康奈尔笔记法：将笔记分成&lt;strong&gt;三部分&lt;/strong&gt;——内容整理、发现感想、总结。&lt;/p&gt;
+&lt;p&gt;SQ3R 阅读法：浏览、提问、阅读、回忆、复习。&lt;/p&gt;
+&lt;h2 id=&#34;快速上手一个领域&#34;&gt;快速上手一个领域：&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;做wiki&lt;/strong&gt;：整理现状的wiki&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;带着答案找答案&lt;/strong&gt;：有问题时，不要着急提问，停下来思考一下，带着(自己的)答案去找答案/咨询更好&lt;/p&gt;
+&lt;h2 id=&#34;碎片时间的利用&#34;&gt;碎片时间的利用&lt;/h2&gt;
+&lt;p&gt;碎片时间系统学习：碎片的时间不要碎片化利用（看博客之类），而是要进行系统化学习，比如利用碎片时间学习操作系统，每个碎片时间学习其中的某一个章节，积少成多。&lt;/p&gt;
+&lt;h2 id=&#34;知识错觉&#34;&gt;知识错觉&lt;/h2&gt;
+&lt;p&gt;最近的一项研究表明，互联网可能会助长人们的&amp;quot;知识错觉&amp;quot;，过度自信自己的技能水平。&lt;/p&gt;
+&lt;p&gt;研究人员让实验的参与者，重复观看某种技能的视频，例如投飞镖或者跳霹雳舞的视频，最多可以看20次。&lt;/p&gt;
+&lt;p&gt;看完以后，参与者需要预估一下，自己对这项技能的掌握程度。&lt;/p&gt;
+&lt;p&gt;大多数人表示，通过观看视频，他们已经一定程度上掌握了该项技能。而且，观看视频次数越多的人，回答越确定，自信心越强。&lt;/p&gt;
+&lt;p&gt;然后，每个人需要当众展示该项技能。结果令人非常失望，他们显然都没有掌握。研究人员说&amp;quot;他们的实际表现没有显示出任何学会的迹象。&amp;quot;&lt;/p&gt;
+&lt;p&gt;程序员尤其要小心这种错觉，千万不要看完教材或文档，就认为自己掌握了某项技能，一定要自己动手用它做过项目，才算学会。&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>

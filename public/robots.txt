@@ -1,3 +1,7 @@
 User-agent: *
-Disallow:
+
+Disallow: /images/
+Disallow: /js/
+Disallow: /css/
+
 Sitemap: http://localhost:1313/sitemap.xml
