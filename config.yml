@@ -1,0 +1,166 @@
+baseURL: "https://leo9827.github.io/"
+title: leo9827
+paginate: 5
+theme: PaperMod
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+mainsections: ["posts", "papermod"]
+# googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  # minifyOutput: true
+defaultContentLanguage: zh
+languages:
+  zh:
+    languageName: 中
+    menu:
+      main:
+        - name: 文章
+          url: /blog
+          weight: 1
+        - name: 分类
+          url: /tags
+          weight: 2
+        - name: 历史文章
+          url: /archives
+          weight: 3
+        - name: 留言板
+          url: /guestbook
+          weight: 4
+        - name: 网站统计
+          url: https://xxx
+          weight: 5
+  en:
+    languageName: EN
+    menu:
+      main:
+        - name: Blog
+          url: /blog
+          weight: 1
+        - name: Tags
+          url: /tags
+          weight: 2
+        - name: Archive
+          url: /archives
+          weight: 3
+        - name: Guestbook
+          url: /guestbook
+          weight: 4
+        - name: Dashboard
+          url: https://xxx
+          weight: 5
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  description: "find my way and inner peace."
+  author: leo9827
+  # author: ["Me", "You"] # multiple authors
+  avatarURL: /assets/avatar.png
+  options:
+    showDarkMode: true
+    enableImgZooming: true
+    enableMultiLang: true
+  comments:
+    giscus:
+      enable: true
+      repo: leo9827/leo9827.github.io
+      repo_id: R_kgDOLn0evw
+      category: Announcements
+      category_id: DIC_kwDOLn0ev84CeWrD
+      mapping: pathname
+      position: top
+      lang: enzh-CN # pick a language from https://github.com/giscus/giscus/tree/main/locales
+    utteranc:
+      enable: false
+      repo: username/xxx
+      issueTerm: pathname
+  guestbook:
+    title: Guestbook
+    description: Leave a comment below. It could be anything –- question, appreciation, information, or even humor.
+  analytics:
+    google:
+      SiteVerificationTag: G-NPENSFQ4H5
+    umami:
+      enable: true
+      website_id: xxx
+      url: https://xxx
+  defaultTheme: auto
+  # disableThemeToggle: true
+  ShowShareButtons: true
+  ShowReadingTime: true
+  # disableSpecial1stPost: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+  # comments: false
+  images: ["images/papermod-cover.png"]
+
+  profileMode:
+    enabled: false
+    title: PaperMod
+    imageUrl: "#"
+    imageTitle: my image
+    # imageWidth: 120
+    # imageHeight: 120
+    buttons:
+      - name: Archives
+        url: archives
+      - name: Tags
+        url: tags
+
+  homeInfoParams:
+    Title: "Hi there, I'm leo9827"
+    Content: >
+      👋 Welcome!
+
+      -   
+
+      - God, Grant me    
+
+      - the SERENITY, to accept the things I cannot change,
+      
+      - COURAGE to change the things I can, and
+      
+      - the WISDOM to know the difference.
+  socialIcons:
+    - name: github
+      title: Find me on Github
+      url: "https://github.com/leo9827"
+    - name: X
+      title: Find me on X/Twitter
+      url: "https://twitter.com/haha1897"
+
+  editPost:
+
+  assets:
+    disableHLJS: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true
