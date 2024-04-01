@@ -1,10 +1,9 @@
 ---
-title: 'How to study'
-date: 2024-03-28T22:38:54+08:00
+date: 2024-04-01T23:04:53+08:00
+title: "How to study"
+description: ""
 tags: []
 series: []
-featured: true
-draft: true
 ---
 如何快速上手一个领域? 常用学习方法
 
