@@ -5,6 +5,9 @@
     <link>http://localhost:1313/zh/series/</link>
     <description>Recent content in Series on LADDER</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language><atom:link href="http://localhost:1313/zh/series/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh</language>
+    <managingEditor>iguangzhengli@gmail.com (Guangzheng Li)</managingEditor>
+    <webMaster>iguangzhengli@gmail.com (Guangzheng Li)</webMaster>
+    <copyright>2023 GuangzhengLi All rights reserved</copyright><atom:link href="http://localhost:1313/zh/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
