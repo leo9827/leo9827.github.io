@@ -5,6 +5,8 @@
     <link>http://localhost:1313/series/</link>
     <description>Recent content in Series on leo9827</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language><atom:link href="http://localhost:1313/series/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh</language>
+    <copyright>2023 leo9827 All rights reserved</copyright>
+    <lastBuildDate>Mon, 01 Apr 2024 23:00:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

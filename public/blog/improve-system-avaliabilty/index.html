@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提升系统可用性</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@提高可用性，应该从全局，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.">
+    <meta name="author" content="leo9827">
+    <link rel="canonical" href="http://localhost:1313/blog/improve-system-avaliabilty/">
+        <meta name="google-site-verification" content="G-NPENSFQ4H5">
+
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313//index.xml" title="leo9827">
+
+    
+
+
+    <meta property="og:title" content="提升系统可用性" />
+<meta property="og:description" content="提高可用性，应该从全局，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/improve-system-avaliabilty/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-04-01T23:10:08+08:00" />
+<meta property="article:modified_time" content="2024-04-01T23:10:08+08:00" />
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="提升系统可用性"/>
+<meta name="twitter:description" content="提高可用性，应该从全局，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "提升系统可用性",
+      "item": "http://localhost:1313/blog/improve-system-avaliabilty/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "提升系统可用性",
+  "name": "提升系统可用性",
+  "description": "提高可用性，应该从全局，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.\n",
+  "keywords": [
+    "architecture", "availability"
+  ],
+  "articleBody": "提高可用性，应该从全局，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.\n1.概述 架构设计一个处理软件复杂度的过程，同时应该遵循TradeOff原则，结合项目实际情况落地增强系统可用性\n1.1. 可用性 vs 可靠性 可用性(N个9表述): 系统可用的时间，以丢失的时间为驱动，公式: PA=Uptime/(Uptime+Downtime) Uptime: 系统可用时间 Downtime: 系统不可用时间 可靠性: 系统无失效时间间隔，以发生的失效个数作为驱动，公式: PA=MTBF/(MTBF+MTTR） MTBF: 平均故障时间(mean time between faiulre) MTTR: 平均故障修复时间(mean time to repair) 可用性等级:\n等级 几个9 年停机时长 常用技术 基本可用 99% 87.6h 负载均衡 较高可用 99.9% 8.8h 灰度发布、快速回滚、自动化发布 高级可用 99.99% 53min 微服务、数据库、缓存集群、容错、监控、弹性伸缩 极高可用 99.999% 5min 异地多活、智能运维 1.2. 可用性减低的原因 发布: 服务升级、数据迁移导致服务可能中断，80%的故障是由于发布造成的 故障: 服务Bug、系统宕机、内存溢出、网络波动等导致服务可能中断 压力: 突发事件导致服务处理不过来，导致服务中断 外部依赖： 外部依赖服务故障，导致调用异常 1.3. 提升高可用原则 20/10/5原则，提升系统架构高可用的上限 Design for fail原则，提升系统韧性 知己知彼原则，提升系统透明度，识别系统潜在风险，提前做好预案 2. 服务发布 思考切尔诺贝利事件，流程操作规范的重要性\n发布关注点:\n发布流程CheckList、CR 发布策略: 错峰、灰度流量逐步放开 回滚策略: 异常问题及时回滚 运维值守 2.1. 成熟机制和流程 2.1.1. 蓝绿部署 部署蓝绿两套集群，通过负载均衡关联，新旧蓝绿交替滚动发布，回退简单，负载均衡切换到旧版本即可（当存在数据隔离后，实际情况操作比较复杂），相关特点：\n自动化基础设施依赖 全面监控 两套环境隔离，有相互影响风险（比如: 存储服务无法很好蓝绿处理） 难点数据结构变更，如何同步数据，故障时候，如何回滚 支持流量快速切换（实际有困难） 2.1.2. 灰度发布/金丝雀发布 流程:从负载均衡剔除节点(流量踢干净)、节点升级、自动化接口测试、加入负载均衡、监控故障、逐步灰度其他节点 意义:减少故障范围、尽早用户反馈和数据收集 灰度控制:内部-\u003e外部1%-\u003e5%-\u003e10%-\u003e全网 3. 容错设计 Design for failure 容错设计是为了确保错误发生时，能够从容应对\n3.1. 消除单点 服务冗余设计 服务无状态 故障转移（比如nginx+keepalive、redis哨兵、mysql主从切换） 3.3. 服务分级 产品功能梳理核心流程，找到核心服务，划分等级，确认服务关键程度\n服务级别 划分依据 示例 1级服务 核心业务流程，一旦故障业务遭受重大损失 注册、登录、支付 2级服务 用户体验影响严重，一旦故障，关键业务还可用，用户体验影响严重 搜索、评论 3级服务 用户体验影响轻微，一旦故障，正常流程不受影响，不常用的功能不可用 个人信息 4级服务 多为管理维护，用户不受影响，用户不会直接访问 统计、排行 3.4. 服务降级设计 服务降级前置条件是先梳理清楚服务核心等级，预先配置中心定义好降级开关 降级方式 关闭功能: 业务JS控制少掉了某个功能 请求短路：返回缓存数据 简化流程：注册成功的提示短信不发 延迟执行: 比如定时任务 关闭定时任务 低精确度返回：比如报名人数、在线人数 3.5. 超时重试 主调服务请求被动服务，可能存在成功、失败、超时3类状态，频繁发起重试，可能加重消费者负担，造成更严重的事故。\n重试策略的关键因子:\n超时时间: 包括调用超时时间、下游服务处理时间 重试总次数（retrycount）：多次重试可能对下游造成更大压力 重试间隔时间（intervalTimey）：间隔多久重试 重试间隔时间衰减（weakTime）: 时间退避/衰减算法 重试模式：\n简单重试：try-catch-redo，重试一次 策略重试: try-catch-redo-retry straegy，重试策略决定是否重试，关键因子(retrycount、intervalTimey、weakTime) 重试模式比较通用，尝试对业务解耦\n何种条件重试: 符合指定策略才重试 何时重试: 立即重试、间隔重试、时间衰减重试、随机退避重试 重试次数：不超过重试次数最大限度重试 3.6. 隔离策略 进程、线程池 机器隔离 集群隔离 地域隔离 用户、租户隔离 3.7. 熔断器（防止雪崩） 服务雪崩：服务提供者的不可用导致服务消费者也不可用，并将不可用逐级放大的过程。\n熔断器就是放在主调服务一侧，阻断主调请求避免对下游服务提供者造成压力。当被调大量超时下，主调服务主动熔断，防止服务进一步拖垮，一旦情况变好，主调重新尝试，最终让系统恢复\n熔断器三种状态：\n打开: 断路状态，调用请求被禁止，快速失败/业务降级返回 闭合: 通路状态，调用请求被允许放行；当在闭合下，区间时间内累计错误次数达到阈值，则将闭合状态变为打开状态，服务被熔断 半打开：熔断器允许部分请求到达下游，当在半打开下，若依旧有调用失败，则返回打开状态；若请求顺利，调用成功，则返回到闭合状态 注意:\n禁止一个熔断器控制多个服务 熔断后，主调方应该做好快速失败、业务降级、不显示/显示缓存值返回 任务干预，支持通过开关预留，这次手动强制开启或关闭熔断器 4. 流控设计（过载保护） 流控，通过流量控制保护服务自身免被压垮，起到超出部分被拒绝，承受范围内请求被正常处理\n4.1. 限流算法 4.1.1. 固定窗口(fixed window) 每个时间片内窗口内，允许访问的总次数。\n缺点是算法存在临界值2倍限流量情况，同时在下个时间片内出容易现流量蜂拥，容易形成踩踏现象\n4.1.2. 漏桶算法(Leaky Bucket) 水流入(请求生产): 漏入桶中，桶满则溢出 漏桶(队列): FIFO队列 水流出(请求消费): 以一定速率从桶内取出请求消费 适用场景: 秒杀场景，削峰填谷\n4.1.3. 令牌桶算法(Token Buket) 一个时间窗口内通过的数据量，通过以QPS、TPS衡量\n创建一个可放指定数量(M)令牌的桶（队列） 每间隔一定时间片，放入一个令牌到桶中（定时令牌生成器），桶满则溢出 每当R个请求到达时，从桶内取出min(M,R)个令牌，若桶内令牌不够，则将请求缓存或者丢弃（对比网卡的环形队列作用） 4.2. 流控策略 需要配合压测结果、资源环境，对每个服务单独进行配置，一般采用经验值\n流控的几点注意:\n尽量在请求入口处做收拢，比如GW层(nginx)、业务出入口、公共基础服务 流控阈值可能会随着服务的迭代也会变化，比如迭代后服务耗时增加了，那么对应的流控速率就应该更小了，这点需要注意 阈值不要设置过大，否则起不到流控作用 4.4. 容量预估 对系统容量做到知根知底，ab、LoadRunner、Jmeter这类都比较片面，很难系统模拟生产环境数据，采用全链路可以规避这些问题\n全链路压测进行容量评估，几点注意:\n核心流程：28原则，确保真正核心的流程被压测到，这里就需要有张整体的服务调用网络拓扑图，并梳理出核心链路 隔离方式：独立压测环境，压测效果和隔离效果好，但成本高；生产混合，通过参数识别，在框架和服务处染色处理，资源隔离性不好； 缩小依赖范围：这样可以更加有的放矢，识别链路的关键瓶颈 PS: 链路有短板效应，需要准确的识别到链路的短板，方便后期做好性能提升，增加系统整体吞吐\n5. 故障演练 - Chaos The best way to avoid failure is to fail constantly\n故障演练可以检测业务应用处理失败的能力，以及团队对故障的应对反应(包括通过监控日志、快速故障定位、应急措施），避免当故障真正发生时候，团队人员手忙脚乱，不知所措。\n6. 数据迁移 - 目标是Zero Downtime 做数据迁移时候，也可能对系统可用性有影响，目标是无停机时间，常见迁移方式：\n逻辑分离，物理不分离 新老服务，双写同一个数据库/缓存不同表 过渡方案 逻辑分析力，物理分离 需要做数据同步，比如通过工具读取binlog实现数据双向同步 业务应用同时写两个库 老系统写消息通过写到消息中间件，消费消息中间件实现同步 关键问题: 数据一致性问题\n",
+  "wordCount" : "248",
+  "inLanguage": "zh",
+  "datePublished": "2024-04-01T23:10:08+08:00",
+  "dateModified": "2024-04-01T23:10:08+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "leo9827"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/improve-system-avaliabilty/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "leo9827",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/favicon.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/favicon.ico">
+
+<link rel="manifest" href="/favicon.ico">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.css" media="screen">
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.c607d6febd16934a82eb61d3a896ed9d869f54373cc63ce95864ed5488fe3128.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            HOME
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/guestbook">留言板</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/leo9827"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"  stroke-linejoin="round" class="feather feather-github"><path d="M9  19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54  6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16  2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5  4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://twitter.com/haha1897"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+ stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9
+  0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 
+  11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+            
+            
+            
+            
+            
+            <li class="navigation-item navigation-language">
+                <a href="http://localhost:1313/en/">EN</a>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>提升系统可用性</h1>
+  </header>
+
+  <p>
+  <small>
+    2024年4月1日&nbsp;· 248 字&nbsp;· 2 分钟</small>
+
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1概述">1.概述</a>
+      <ul>
+        <li><a href="#11-可用性-vs-可靠性">1.1. 可用性 vs 可靠性</a></li>
+        <li><a href="#12-可用性减低的原因">1.2. 可用性减低的原因</a></li>
+        <li><a href="#13-提升高可用原则">1.3. 提升高可用原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-服务发布">2. 服务发布</a>
+      <ul>
+        <li><a href="#21-成熟机制和流程">2.1. 成熟机制和流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-容错设计-design-for-failure">3. 容错设计 Design for failure</a>
+      <ul>
+        <li><a href="#31-消除单点">3.1. 消除单点</a></li>
+        <li><a href="#33-服务分级">3.3. 服务分级</a></li>
+        <li><a href="#34-服务降级设计">3.4. 服务降级设计</a></li>
+        <li><a href="#35-超时重试">3.5. 超时重试</a></li>
+        <li><a href="#36-隔离策略">3.6. 隔离策略</a></li>
+        <li><a href="#37-熔断器防止雪崩">3.7. 熔断器（防止雪崩）</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-流控设计过载保护">4. 流控设计（过载保护）</a>
+      <ul>
+        <li><a href="#41-限流算法">4.1. 限流算法</a></li>
+        <li><a href="#42-流控策略">4.2. 流控策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#44-容量预估">4.4. 容量预估</a></li>
+    <li><a href="#5-故障演练---chaos">5. 故障演练 - Chaos</a></li>
+    <li><a href="#6-数据迁移---目标是zero-downtime">6. 数据迁移 - 目标是Zero Downtime</a></li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><p>提高可用性，应该从<strong>全局</strong>，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.</p>
+<h2 id="1概述">1.概述</h2>
+<p><em><strong>架构设计一个处理软件复杂度的过程，同时应该遵循TradeOff原则，结合项目实际情况落地增强系统可用性</strong></em></p>
+<h3 id="11-可用性-vs-可靠性">1.1. 可用性 vs 可靠性</h3>
+<ul>
+<li>可用性(N个9表述): 系统可用的时间，以丢失的时间为驱动，公式: <code>PA=Uptime/(Uptime+Downtime)</code></li>
+<li><code>Uptime</code>: 系统可用时间</li>
+<li><code>Downtime</code>: 系统不可用时间</li>
+<li>可靠性: 系统无失效时间间隔，以发生的失效个数作为驱动，公式: <code>PA=MTBF/(MTBF+MTTR）</code></li>
+<li><code>MTBF</code>: 平均故障时间(mean time between faiulre)</li>
+<li><code>MTTR</code>: 平均故障修复时间(mean time to repair)</li>
+</ul>
+<p><strong>可用性等级:</strong></p>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>几个9</th>
+<th>年停机时长</th>
+<th>常用技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本可用</td>
+<td>99%</td>
+<td>87.6h</td>
+<td>负载均衡</td>
+</tr>
+<tr>
+<td>较高可用</td>
+<td>99.9%</td>
+<td>8.8h</td>
+<td>灰度发布、快速回滚、自动化发布</td>
+</tr>
+<tr>
+<td>高级可用</td>
+<td>99.99%</td>
+<td>53min</td>
+<td>微服务、数据库、缓存集群、容错、监控、弹性伸缩</td>
+</tr>
+<tr>
+<td>极高可用</td>
+<td>99.999%</td>
+<td>5min</td>
+<td>异地多活、智能运维</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-可用性减低的原因">1.2. 可用性减低的原因</h3>
+<ul>
+<li>发布: 服务升级、数据迁移导致服务可能中断，<strong>80%的故障是由于发布造成的</strong></li>
+<li>故障: 服务Bug、系统宕机、内存溢出、网络波动等导致服务可能中断</li>
+<li>压力: 突发事件导致服务处理不过来，导致服务中断</li>
+<li>外部依赖： 外部依赖服务故障，导致调用异常</li>
+</ul>
+<h3 id="13-提升高可用原则">1.3. 提升高可用原则</h3>
+<ul>
+<li><strong>20/10/5原则</strong>，提升系统架构高可用的上限</li>
+<li><strong>Design for fail原则</strong>，提升系统韧性</li>
+<li><strong>知己知彼原则</strong>，提升系统透明度，识别系统潜在风险，提前做好预案</li>
+</ul>
+<h2 id="2-服务发布">2. 服务发布</h2>
+<blockquote>
+<p>思考切尔诺贝利事件，流程操作规范的重要性</p>
+</blockquote>
+<p><strong>发布关注点</strong>:</p>
+<ul>
+<li>发布流程CheckList、CR</li>
+<li>发布策略: 错峰、灰度流量逐步放开</li>
+<li>回滚策略: 异常问题及时回滚</li>
+<li>运维值守</li>
+</ul>
+<h3 id="21-成熟机制和流程">2.1. 成熟机制和流程</h3>
+<h4 id="211-蓝绿部署">2.1.1. 蓝绿部署</h4>
+<p>部署蓝绿两套集群，通过负载均衡关联，新旧蓝绿交替滚动发布，回退简单，负载均衡切换到旧版本即可（<strong><em>当存在数据隔离后，实际情况操作比较复杂</em></strong>），相关特点：</p>
+<ul>
+<li>自动化基础设施依赖</li>
+<li>全面监控</li>
+<li>两套环境隔离，有相互影响风险（比如: 存储服务无法很好蓝绿处理）</li>
+<li>难点数据结构变更，如何同步数据，故障时候，如何回滚</li>
+<li>支持流量快速切换（实际有困难）</li>
+</ul>
+<h4 id="212-灰度发布金丝雀发布">2.1.2. 灰度发布/金丝雀发布</h4>
+<ul>
+<li>流程:从负载均衡剔除节点(流量踢干净)、节点升级、自动化接口测试、加入负载均衡、监控故障、逐步灰度其他节点</li>
+<li>意义:减少故障范围、尽早用户反馈和数据收集</li>
+<li>灰度控制:<strong>内部-&gt;外部1%-&gt;5%-&gt;10%-&gt;全网</strong></li>
+</ul>
+<h2 id="3-容错设计-design-for-failure">3. 容错设计 Design for failure</h2>
+<blockquote>
+<p>容错设计是为了确保错误发生时，能够从容应对</p>
+</blockquote>
+<h3 id="31-消除单点">3.1. 消除单点</h3>
+<ol>
+<li>服务冗余设计</li>
+<li>服务无状态</li>
+<li>故障转移（比如nginx+keepalive、redis哨兵、mysql主从切换）</li>
+</ol>
+<h3 id="33-服务分级">3.3. 服务分级</h3>
+<blockquote>
+<p>产品功能梳理核心流程，找到核心服务，划分等级，确认服务关键程度</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>服务级别</th>
+<th>划分依据</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1级服务</td>
+<td>核心业务流程，一旦故障业务遭受重大损失</td>
+<td>注册、登录、支付</td>
+</tr>
+<tr>
+<td>2级服务</td>
+<td>用户体验影响严重，一旦故障，关键业务还可用，用户体验影响严重</td>
+<td>搜索、评论</td>
+</tr>
+<tr>
+<td>3级服务</td>
+<td>用户体验影响轻微，一旦故障，正常流程不受影响，不常用的功能不可用</td>
+<td>个人信息</td>
+</tr>
+<tr>
+<td>4级服务</td>
+<td>多为管理维护，用户不受影响，用户不会直接访问</td>
+<td>统计、排行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-服务降级设计">3.4. 服务降级设计</h3>
+<ol>
+<li>服务降级前置条件是先梳理清楚服务核心等级，预先配置中心定义好降级开关</li>
+<li>降级方式
+<ul>
+<li><strong>关闭功能</strong>: 业务JS控制少掉了某个功能</li>
+<li><strong>请求短路</strong>：返回缓存数据</li>
+<li>简化流程：注册成功的提示短信不发</li>
+<li>延迟执行: 比如定时任务</li>
+<li>关闭定时任务</li>
+<li><strong>低精确度返回</strong>：比如报名人数、在线人数</li>
+</ul>
+</li>
+</ol>
+<h3 id="35-超时重试">3.5. 超时重试</h3>
+<p>主调服务请求被动服务，可能存在成功、失败、超时3类状态，频繁发起重试，可能加重消费者负担，造成更严重的事故。</p>
+<p>重试策略的关键因子:</p>
+<ol>
+<li>超时时间: 包括调用超时时间、下游服务处理时间</li>
+<li>重试总次数（retrycount）：多次重试可能对下游造成更大压力</li>
+<li>重试间隔时间（intervalTimey）：间隔多久重试</li>
+<li>重试间隔时间衰减（weakTime）: 时间退避/衰减算法</li>
+</ol>
+<p>重试模式：</p>
+<ol>
+<li><strong>简单重试</strong>：try-catch-redo，重试一次</li>
+<li><strong>策略重试</strong>: try-catch-redo-retry straegy，重试策略决定是否重试，关键因子(retrycount、intervalTimey、weakTime)</li>
+</ol>
+<p>重试模式比较通用，尝试对业务解耦</p>
+<ul>
+<li>何种条件重试: 符合指定策略才重试</li>
+<li>何时重试: 立即重试、间隔重试、时间衰减重试、随机退避重试</li>
+<li>重试次数：不超过重试次数最大限度重试</li>
+</ul>
+<h3 id="36-隔离策略">3.6. 隔离策略</h3>
+<ul>
+<li>进程、线程池</li>
+<li>机器隔离</li>
+<li>集群隔离</li>
+<li>地域隔离</li>
+<li>用户、租户隔离</li>
+</ul>
+<h3 id="37-熔断器防止雪崩">3.7. 熔断器（防止雪崩）</h3>
+<blockquote>
+<p>服务雪崩：服务提供者的不可用导致服务消费者也不可用，并将不可用逐级放大的过程。<br>
+熔断器就是放在主调服务一侧，阻断主调请求避免对下游服务提供者造成压力。当被调大量超时下，主调服务主动熔断，防止服务进一步拖垮，一旦情况变好，主调重新尝试，最终让系统恢复</p>
+</blockquote>
+<p>熔断器三种状态：</p>
+<ul>
+<li>打开: 断路状态，调用请求被禁止，快速失败/业务降级返回</li>
+<li>闭合: 通路状态，调用请求被允许放行；当在闭合下，区间时间内累计错误次数达到阈值，则将闭合状态变为打开状态，服务被熔断</li>
+<li>半打开：熔断器允许部分请求到达下游，当在半打开下，若依旧有调用失败，则返回打开状态；若请求顺利，调用成功，则返回到闭合状态</li>
+</ul>
+<p>注意:</p>
+<ol>
+<li>禁止一个熔断器控制多个服务</li>
+<li>熔断后，主调方应该做好快速失败、业务降级、不显示/显示缓存值返回</li>
+<li>任务干预，支持通过开关预留，这次手动强制开启或关闭熔断器</li>
+</ol>
+<h2 id="4-流控设计过载保护">4. 流控设计（过载保护）</h2>
+<blockquote>
+<p>流控，通过流量控制保护服务自身免被压垮，起到超出部分被拒绝，承受范围内请求被正常处理</p>
+</blockquote>
+<h3 id="41-限流算法">4.1. 限流算法</h3>
+<h4 id="411-固定窗口fixed-window">4.1.1. 固定窗口(fixed window)</h4>
+<p>每个时间片内窗口内，允许访问的总次数。</p>
+<p>缺点是算法存在临界值2倍限流量情况，同时在下个时间片内出容易现流量蜂拥，容易形成踩踏现象</p>
+<h4 id="412-漏桶算法leaky-bucket">4.1.2. 漏桶算法(Leaky Bucket)</h4>
+<ul>
+<li>水流入(请求生产): 漏入桶中，桶满则溢出</li>
+<li>漏桶(队列): FIFO队列</li>
+<li>水流出(请求消费): 以一定速率从桶内取出请求消费</li>
+</ul>
+<p>适用场景: 秒杀场景，削峰填谷</p>
+<h4 id="413-令牌桶算法token-buket">4.1.3. 令牌桶算法(Token Buket)</h4>
+<blockquote>
+<p>一个时间窗口内通过的数据量，通过以QPS、TPS衡量</p>
+</blockquote>
+<ol>
+<li>创建一个可放指定数量(M)令牌的桶（队列）</li>
+<li>每间隔一定时间片，放入一个令牌到桶中（定时令牌生成器），桶满则溢出</li>
+<li>每当R个请求到达时，从桶内取出min(M,R)个令牌，若桶内令牌不够，则将请求缓存或者丢弃（对比网卡的环形队列作用）</li>
+</ol>
+<h3 id="42-流控策略">4.2. 流控策略</h3>
+<blockquote>
+<p>需要配合压测结果、资源环境，对每个服务单独进行配置，一般采用经验值</p>
+</blockquote>
+<p>流控的几点注意:</p>
+<ol>
+<li>尽量在请求入口处做收拢，比如GW层(nginx)、业务出入口、公共基础服务</li>
+<li>流控阈值可能会随着服务的迭代也会变化，比如迭代后服务耗时增加了，那么对应的流控速率就应该更小了，这点需要注意</li>
+<li>阈值不要设置过大，否则起不到流控作用</li>
+</ol>
+<h2 id="44-容量预估">4.4. 容量预估</h2>
+<blockquote>
+<p>对系统容量做到知根知底，ab、LoadRunner、Jmeter这类都比较片面，很难系统模拟生产环境数据，采用全链路可以规避这些问题</p>
+</blockquote>
+<p>全链路压测进行容量评估，几点注意:</p>
+<ol>
+<li>核心流程：28原则，确保真正核心的流程被压测到，这里就需要有张整体的服务调用网络拓扑图，并梳理出核心链路</li>
+<li>隔离方式：独立压测环境，压测效果和隔离效果好，但成本高；生产混合，通过参数识别，在框架和服务处染色处理，资源隔离性不好；</li>
+<li>缩小依赖范围：这样可以更加有的放矢，识别链路的关键瓶颈</li>
+</ol>
+<p>PS: 链路有短板效应，需要准确的识别到链路的短板，方便后期做好性能提升，增加系统整体吞吐</p>
+<h2 id="5-故障演练---chaos">5. 故障演练 - Chaos</h2>
+<blockquote>
+<p>The best way to avoid failure is to fail constantly</p>
+</blockquote>
+<p>故障演练可以检测业务应用处理失败的能力，以及团队对故障的应对反应(包括通过监控日志、快速故障定位、应急措施），避免当故障真正发生时候，团队人员手忙脚乱，不知所措。</p>
+<h2 id="6-数据迁移---目标是zero-downtime">6. 数据迁移 - 目标是Zero Downtime</h2>
+<p>做数据迁移时候，也可能对系统可用性有影响，目标是无停机时间，常见迁移方式：</p>
+<ul>
+<li>逻辑分离，物理不分离
+<ul>
+<li>新老服务，双写同一个数据库/缓存不同表</li>
+<li>过渡方案</li>
+</ul>
+</li>
+<li>逻辑分析力，物理分离
+<ul>
+<li>需要做数据同步，比如通过工具读取binlog实现数据双向同步</li>
+<li>业务应用同时写两个库</li>
+<li>老系统写消息通过写到消息中间件，消费消息中间件实现同步</li>
+</ul>
+</li>
+</ul>
+<p>关键问题: 数据一致性问题</p></section>
+
+  
+  
+  <div class="paginator">
+    
+    
+    <a class="next" href="http://localhost:1313/blog/my-study-method/"><span>我的学习方法</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+<div class="comments">
+  <script>
+      const getTheme = window.localStorage && window.localStorage.getItem("theme");
+      let theme = getTheme === 'dark' ? 'dark' : 'light';
+      let s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'leo9827\/leo9827.github.io');
+      s.setAttribute('data-repo-id', 'R_kgDOLn0evw');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_kwDOLn0ev84CeWrD');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme);
+      s.setAttribute('data-lang', 'zh-CN');
+      s.setAttribute('data-loading', 'lazy');
+      s.setAttribute('crossorigin', 'anonymous');
+      s.setAttribute('async', '');
+      document.querySelector('div.comments').innerHTML = '';
+      document.querySelector('div.comments').appendChild(s);
+  </script>
+</div>
+
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2024 <a href="http://localhost:1313/">leo9827</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>
