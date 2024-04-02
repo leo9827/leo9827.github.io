@@ -13,7 +13,7 @@ pygmentsUseClasses: true
 paginate: 10
 copyright: "2023 leo9827 All rights reserved"
 params:
-  brand: HOME
+  brand: '~/'
   avatarURL: /android-chrome-192x192.png
   author: leo9827
   authorDescription: "Hi there, 👋 Welcome! I'm leo9827, Find my way and inner peace."
