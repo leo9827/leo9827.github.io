@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on leo9827</title>
-    <link>http://localhost:1313/blog/</link>
+    <link>https://leo9827.github.io/blog/</link>
     <description>Recent content in Blogs on leo9827</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>2023 leo9827 All rights reserved</copyright>
-    <lastBuildDate>Mon, 01 Apr 2024 23:10:08 +0800</lastBuildDate><atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Apr 2024 23:10:08 +0800</lastBuildDate><atom:link href="https://leo9827.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>提升系统可用性</title>
-      <link>http://localhost:1313/blog/improve-system-avaliabilty/</link>
+      <link>https://leo9827.github.io/blog/improve-system-avaliabilty/</link>
       <pubDate>Mon, 01 Apr 2024 23:10:08 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/improve-system-avaliabilty/</guid>
+      <guid>https://leo9827.github.io/blog/improve-system-avaliabilty/</guid>
       <description>&lt;p&gt;提高可用性，应该从&lt;strong&gt;全局&lt;/strong&gt;，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.&lt;/p&gt;
 &lt;h2 id=&#34;1概述&#34;&gt;1.概述&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;架构设计一个处理软件复杂度的过程，同时应该遵循TradeOff原则，结合项目实际情况落地增强系统可用性&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
@@ -279,10 +279,10 @@
     
     <item>
       <title>我的学习方法</title>
-      <link>http://localhost:1313/blog/my-study-method/</link>
+      <link>https://leo9827.github.io/blog/my-study-method/</link>
       <pubDate>Mon, 01 Apr 2024 23:08:12 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/my-study-method/</guid>
+      <guid>https://leo9827.github.io/blog/my-study-method/</guid>
       <description>&lt;p&gt;我正在使用的一些学习方法和理论.&lt;/p&gt;
 &lt;h2 id=&#34;学习方法&#34;&gt;学习方法&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://wiki.mbalib.com/zh-tw/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95&#34;&gt;费曼学习法&lt;/a&gt;：把你学的东西&lt;strong&gt;讲给别人听&lt;/strong&gt;，能讲清楚就是学会了。&lt;/p&gt;
@@ -306,10 +306,10 @@
     
     <item>
       <title>How to study</title>
-      <link>http://localhost:1313/blog/how-to-study/</link>
+      <link>https://leo9827.github.io/blog/how-to-study/</link>
       <pubDate>Mon, 01 Apr 2024 23:04:53 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/how-to-study/</guid>
+      <guid>https://leo9827.github.io/blog/how-to-study/</guid>
       <description>&lt;p&gt;如何快速上手一个领域? 常用学习方法&lt;/p&gt;
 &lt;h2 id=&#34;学习方法&#34;&gt;学习方法&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://wiki.mbalib.com/zh-tw/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95&#34;&gt;费曼学习法&lt;/a&gt;：把你学的东西&lt;strong&gt;讲给别人听&lt;/strong&gt;，能讲清楚就是学会了。&lt;/p&gt;
@@ -333,10 +333,10 @@
     
     <item>
       <title>管理你的时间</title>
-      <link>http://localhost:1313/blog/manage-your-time/</link>
+      <link>https://leo9827.github.io/blog/manage-your-time/</link>
       <pubDate>Mon, 01 Apr 2024 23:00:35 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/manage-your-time/</guid>
+      <guid>https://leo9827.github.io/blog/manage-your-time/</guid>
       <description>&lt;p&gt;时间管理和自我成长密不可分，如何分配我们所拥有的时间极为重要，这决定了我们去向何方&lt;/p&gt;
 &lt;h1 id=&#34;就一句话不能懒&#34;&gt;就一句话：不能懒&lt;/h1&gt;
 &lt;p&gt;德鲁克把自我管理、特别是时间管理放在管理课题的第一位，也是自我提升的一个重要前提，是很有道理的。记得刚刚来腾讯的时候，在部门分享的第一门课也是《时间管理：如何做一个高效率的人》，可能比较适合刚毕业不久的小朋友、或者受困于时间管理&amp;amp;成长发展的同学，其中有一些要点供你参考：&lt;/p&gt;

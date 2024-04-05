@@ -2,77 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/architecture/</loc>
+    <loc>https://leo9827.github.io/tags/architecture/</loc>
     <lastmod>2024-04-01T23:10:08+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/availability/</loc>
+    <loc>https://leo9827.github.io/tags/availability/</loc>
     <lastmod>2024-04-01T23:10:08+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>https://leo9827.github.io/blog/</loc>
     <lastmod>2024-04-01T23:10:08+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2024-04-01T23:10:08+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://localhost:1313/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://leo9827.github.io/</loc>
     <lastmod>2024-04-01T23:10:08+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/tags/"
+                href="https://leo9827.github.io/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/tags/"
+                href="https://leo9827.github.io/"
                 />
   </url><url>
-    <loc>http://localhost:1313/blog/improve-system-avaliabilty/</loc>
+    <loc>https://leo9827.github.io/tags/</loc>
+    <lastmod>2024-04-01T23:10:08+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://leo9827.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://leo9827.github.io/tags/"
+                />
+  </url><url>
+    <loc>https://leo9827.github.io/blog/improve-system-avaliabilty/</loc>
     <lastmod>2024-04-01T23:10:08+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/mindset/</loc>
+    <loc>https://leo9827.github.io/tags/mindset/</loc>
     <lastmod>2024-04-01T23:08:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/my-study-method/</loc>
+    <loc>https://leo9827.github.io/blog/my-study-method/</loc>
     <lastmod>2024-04-01T23:08:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/how-to-study/</loc>
+    <loc>https://leo9827.github.io/blog/how-to-study/</loc>
     <lastmod>2024-04-01T23:04:53+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/series/how-to-study/</loc>
+    <loc>https://leo9827.github.io/series/how-to-study/</loc>
     <lastmod>2024-04-01T23:00:35+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/series/</loc>
+    <loc>https://leo9827.github.io/series/</loc>
     <lastmod>2024-04-01T23:00:35+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/series/"
+                href="https://leo9827.github.io/en/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/series/"
+                href="https://leo9827.github.io/series/"
                 />
   </url><url>
-    <loc>http://localhost:1313/blog/manage-your-time/</loc>
+    <loc>https://leo9827.github.io/blog/manage-your-time/</loc>
     <lastmod>2024-04-01T23:00:35+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/</loc>
+    <loc>https://leo9827.github.io/tags/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2024-04-01T23:00:35+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://leo9827.github.io/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://leo9827.github.io/search/</loc>
   </url>
 </urlset>

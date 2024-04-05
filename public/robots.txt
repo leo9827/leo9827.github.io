@@ -4,4 +4,4 @@ Disallow: /images/
 Disallow: /js/
 Disallow: /css/
 
-Sitemap: http://localhost:1313/sitemap.xml
+Sitemap: https://leo9827.github.io/sitemap.xml

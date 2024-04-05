@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Architecture on leo9827</title>
-    <link>http://localhost:1313/tags/architecture/</link>
+    <link>https://leo9827.github.io/tags/architecture/</link>
     <description>Recent content in Architecture on leo9827</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>2023 leo9827 All rights reserved</copyright>
-    <lastBuildDate>Mon, 01 Apr 2024 23:10:08 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Apr 2024 23:10:08 +0800</lastBuildDate><atom:link href="https://leo9827.github.io/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>提升系统可用性</title>
-      <link>http://localhost:1313/blog/improve-system-avaliabilty/</link>
+      <link>https://leo9827.github.io/blog/improve-system-avaliabilty/</link>
       <pubDate>Mon, 01 Apr 2024 23:10:08 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/improve-system-avaliabilty/</guid>
+      <guid>https://leo9827.github.io/blog/improve-system-avaliabilty/</guid>
       <description>&lt;p&gt;提高可用性，应该从&lt;strong&gt;全局&lt;/strong&gt;，而非单点技术考虑（包括研发流程、团队文化等），提升可用性是一个过程，需要长时间的积累。文章简要介绍高可用架构设计关键点，希望对在做系统架构设计的新同学有一点帮助，能够对系统可用性有个整体认知。.&lt;/p&gt;
 &lt;h2 id=&#34;1概述&#34;&gt;1.概述&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;架构设计一个处理软件复杂度的过程，同时应该遵循TradeOff原则，结合项目实际情况落地增强系统可用性&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
