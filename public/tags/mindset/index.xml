@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mindset on leo9827</title>
-    <link>https://leo9827.github.io/tags/mindset/</link>
+    <link>http://localhost:1313/tags/mindset/</link>
     <description>Recent content in Mindset on leo9827</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>2023 leo9827 All rights reserved</copyright>
-    <lastBuildDate>Mon, 01 Apr 2024 23:08:12 +0800</lastBuildDate><atom:link href="https://leo9827.github.io/tags/mindset/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Apr 2024 23:08:12 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/mindset/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>我的学习方法</title>
-      <link>https://leo9827.github.io/blog/my-study-method/</link>
+      <link>http://localhost:1313/blog/my-study-method/</link>
       <pubDate>Mon, 01 Apr 2024 23:08:12 +0800</pubDate>
       
-      <guid>https://leo9827.github.io/blog/my-study-method/</guid>
+      <guid>http://localhost:1313/blog/my-study-method/</guid>
       <description>&lt;p&gt;我正在使用的一些学习方法和理论.&lt;/p&gt;
 &lt;h2 id=&#34;学习方法&#34;&gt;学习方法&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://wiki.mbalib.com/zh-tw/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95&#34;&gt;费曼学习法&lt;/a&gt;：把你学的东西&lt;strong&gt;讲给别人听&lt;/strong&gt;，能讲清楚就是学会了。&lt;/p&gt;
