@@ -1,0 +1,30 @@
+[blog]
+one = "post"
+other = "post"
+
+[tags]
+one = "tag"
+other = "tags"
+
+[archive]
+one = "archive"
+other = "archive"
+
+[series]
+one = "series"
+other = "series"
+
+[reading_time]
+one = "1 minute"
+other = "{{ .Count }} min"
+
+[word_count]
+one = "1 word"
+other = "{{ .Count }} words"
+
+[related_posts]
+other = "Related posts"
+
+[recent_posts]
+one = "Recent posts"
+other = "Recent posts"

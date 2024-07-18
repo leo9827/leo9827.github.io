@@ -4,8 +4,9 @@
     <title>leo9827</title>
     <link>http://localhost:1313/en/</link>
     <description>Recent content on leo9827</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>2023 leo9827 All rights reserved</copyright><atom:link href="http://localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>2023 leo9827 All rights reserved</copyright>
+    <atom:link href="http://localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

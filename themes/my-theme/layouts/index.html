@@ -1,0 +1,15 @@
+{{/*  index template  */}}
+this is index.
+<!DOCTYPE html>
+<html>
+
+  <div class="homepage">
+    {{ partial "homepage/profile.html" . }}
+    {{ partial "homepage/recent_posts.html" . }}
+
+  </div>
+
+
+  {{/*  should refrence _default/footer.html in here  */}}
+  {{ partial "footer.html" . }}
+</html>

@@ -1,6 +1,7 @@
 baseURL: 'https://leo9827.github.io'
 title: leo9827
-theme: hugo-theme-ladder
+# theme: hugo-theme-ladder
+theme: my-theme
 license: MIT
 licenselink: 'https://github.com/guangzhengli/hugo-theme-ladder/blob/master/LICENSE'
 description: 'Find my way and inner peace'

@@ -1,0 +1,15 @@
+this is recent_posts
+
+{{ $featured := where .Site.Pages "Params.featured" true }}
+{{ if gt $featured 0 }}
+  <h2>{{- i18n "featured_posts" -}}</h2>
+{{ end }}
+<div class="recent-posts">
+  {{ range $featured }}
+    <article class="recent-post">
+        <h4><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h4>
+        {{ partial "meta.html" . }}
+        {{ .Summary }}
+    </article>
+  {{ end -}}
+</div>

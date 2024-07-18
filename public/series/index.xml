@@ -4,9 +4,17 @@
     <title>Series on leo9827</title>
     <link>http://localhost:1313/series/</link>
     <description>Recent content in Series on leo9827</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh</language>
     <copyright>2023 leo9827 All rights reserved</copyright>
-    <lastBuildDate>Mon, 01 Apr 2024 23:00:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Apr 2024 23:00:35 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Study</title>
+      <link>http://localhost:1313/series/how-to-study/</link>
+      <pubDate>Mon, 01 Apr 2024 23:00:35 +0800</pubDate>
+      <guid>http://localhost:1313/series/how-to-study/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

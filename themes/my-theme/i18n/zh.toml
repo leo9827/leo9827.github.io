@@ -1,0 +1,31 @@
+[blog]
+one = "文章"
+other = "文章"
+
+[tags]
+one = "分类"
+other = "分类"
+
+[archive]
+one = "历史文章"
+other = "历史文章"
+
+[series]
+one = "系列文章"
+other = "系列文章"
+
+[reading_time]
+one = "1 分钟"
+other = "{{ .Count }} 分钟"
+
+[word_count]
+one = "字"
+other = "{{ .Count }} 字"
+
+[related_posts]
+one = "相关推荐"
+other = "相关推荐"
+
+[featured_posts]
+one = "最近更新"
+other = "最近更新"
