@@ -1,1 +1,14 @@
-{{/*  core template  */}}
+{{/* core template */}}
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<body>
+    <main class="wrapper">
+        {{- partial "header.html" . -}}
+        <div id="content">
+            {{- block "content" . }}{{- end }}
+        </div>
+        {{- partial "footer.html" . -}}
+    </main>
+</body>
+
+</html>
