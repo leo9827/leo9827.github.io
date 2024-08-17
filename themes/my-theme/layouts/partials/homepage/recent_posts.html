@@ -1,5 +1,3 @@
-this is recent_posts
-
 {{ $featured := where .Site.Pages "Params.featured" true }}
 {{ if gt $featured 0 }}
   <h2>{{- i18n "featured_posts" -}}</h2>

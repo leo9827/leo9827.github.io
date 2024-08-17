@@ -1,15 +1,222 @@
-{{/*  index template  */}}
-this is index.
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-  <div class="homepage">
-    {{ partial "homepage/profile.html" . }}
-    {{ partial "homepage/recent_posts.html" . }}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>~/on-the-road</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@400;700&display=swap');
 
-  </div>
+    /* CSS 样式 */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      min-height: 100vh;
+      /* 确保 body 至少占满整个视口高度 */
+      display: flex;
+      flex-direction: column;
+      /* 设置 flex 布局 */
+    }
+
+    body.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    header {
+      background-color: transparent;
+      box-shadow: none;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    body.dark-mode header {
+      background-color: transparent;
+      box-shadow: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: inherit;
+      /* 继承父元素的颜色 */
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .theme-switch {
+      background-color: transparent;
+      border: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .theme-switch svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    body.dark-mode .theme-switch {
+      color: #fff;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+    }
+
+    .social-icons a {
+      color: inherit;
+      /* 继承父元素的颜色 */
+      margin-left: 8px;
+      margin-right: 8px;
+      transition: color 0.3s ease;
+    }
+
+    a:hover,
+    nav ul li a:hover,
+    .social-icons a:hover {
+      color: #6c63ff;
+      /* 鼠标悬停时的颜色 */
+    }
+
+    a {
+      color: #01010b;
+      text-decoration: none;
+    }
+
+    body.dark-mode a {
+      color: #fff;
+    }
+
+    body.dark-mode a:hover {
+      color: #221d8c;
+    }
+
+    main {
+      padding: 120px 20px 40px;
+      /* 增加顶部padding以防止被header遮挡 */
+      text-align: center;
+      flex: 1;
+      /* 确保 main 占用剩余空间 */
+    }
+
+    .post {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    body.dark-mode .post {
+      background-color: #444;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    }
+
+    /* 响应式样式 */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <a href=".">~/</a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Posts</a></li>
+        <li><a href="#">Archives</a></li>
+        <li><a href="#">Tags</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fas fa-envelope"></i></a>
+      <button class="theme-switch">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </button>
+    </div>
+
+  </header>
+
+  <main>
+    {{ $featured := where .Site.Pages "Params.featured" true }}
+    {{ if gt $featured 0 }}
+    <h2>{{- i18n "featured_posts" -}}</h2>
+    {{ end }}
+
+    <div class="recent-posts">
+      {{ range $featured }}
+      <article class="post">
+        <h2><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h2>
+        {{/* {{ partial "meta.html" . }} */}}
+        {{ .Summary }} ...
+      </article>
+      {{ end -}}
+    </div>
+    <div>
+      <a href="posts | relURL">more posts ...</a>
+    </div>
+  </main>
 
 
-  {{/*  should refrence _default/footer.html in here  */}}
   {{ partial "footer.html" . }}
+
+  <script>
+    const themeSwitch = document.querySelector('.theme-switch');
+    const sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>';
+    const moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>';
+    let darkMode = false;
+
+    themeSwitch.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkMode = !darkMode;
+      themeSwitch.innerHTML = `${darkMode ? moonIcon : sunIcon}`;
+    });
+  </script>
+</body>
+
 </html>
