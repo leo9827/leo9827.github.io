@@ -6,6 +6,10 @@
     gap: 10px; // 标签之间的间距
     padding: 10px;
     width: 690px;
+    &.dark-mode {
+        background-color: #333; // 背景颜色
+        color: #f9f9f9; // 文本颜色
+    }
 }
 
 .tags-list {
@@ -15,10 +19,18 @@
     display: flex;
     flex-wrap: wrap; // 确保标签在容器内自动换行
     gap: 10px; // 标签之间的间距
+    &.dark-mode {
+        background-color: #333; // 背景颜色
+        color: #f9f9f9; // 文本颜色
+    }
 }
 
 .tags-list li {
     margin: 0;
+    &.dark-mode {
+        background-color: #333; // 背景颜色
+        color: #f9f9f9; // 文本颜色
+    }
 }
 
 .tags-list a {
@@ -28,7 +40,7 @@
     // border-width: 0ex 0ex 0.5ex;
     border-width: 0ex 0.5ex 1ex 0.1ex;
     border-radius: 4px; // 圆角
-    background-color: #f9f9f9; // 背景颜色
+    // background-color: #f9f9f9; // 背景颜色
     color: #333; // 文本颜色
     text-decoration: none; // 移除下划线
     transition: background-color 0.3s, border-color 0.3s; // 添加过渡效果
@@ -38,5 +50,15 @@
     &:hover {
         background-color: #e9e9e9; // 悬停时的背景颜色
         border-color: #bbb; // 悬停时的边框颜色
+    }
+
+    &.dark-mode {
+        color: #f9f9f9; // 文本颜色
+        border: 1px solid #555; // 边框颜色
+
+        &:hover {
+            background-color: #555; // 悬停时的背景颜色
+            border-color: #666; // 悬停时的边框颜色
+        }
     }
 }

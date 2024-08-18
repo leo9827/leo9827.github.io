@@ -50,7 +50,26 @@ body {
         }
 
         .post {
-            box-shadow: 0px 4px 1px 0px rgba(255, 255, 255, 0.1)
+            box-shadow: 0px 4px 1px 0px rgba(255, 255, 255, 0.1);
+            
+            table {
+                background-color: $dark-bg-color;
+                color: $dark-text-color;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+
+                th {
+                    background-color: #444;
+                    color: $dark-text-color;
+                }
+
+                tbody tr:nth-of-type(even) {
+                    background-color: #555;
+                }
+
+                tbody tr:hover {
+                    background-color: #666;
+                }
+            }
         }
 
         footer {
