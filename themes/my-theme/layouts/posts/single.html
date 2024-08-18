@@ -25,13 +25,13 @@
     <div class="page-nav">
         {{ with $pages.Next . }}
         <a class="page-prev" href="{{ .Permalink }}">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;
             <span>{{ .Name }}</span></a>
         {{ end }}
         {{ with $pages.Prev . }}
         <a class="page-next" href="{{ .Permalink }}">
             <span>{{ .Name }}</span>
-            &nbsp<i class="fa-solid fa-arrow-right"></i>
+            &nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i>
         </a>
         {{ end }}
     </div>

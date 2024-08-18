@@ -70,6 +70,15 @@ body {
                     background-color: #666;
                 }
             }
+            code {
+                background-color: #444;
+                color: #ffcc99;
+            }
+
+            pre {
+                background-color: #444;
+                color: #ffcc99;
+            }
         }
 
         footer {
@@ -146,15 +155,19 @@ a {
     margin: 0 auto 10px;
     text-align: start;
 
+    .table-container {
+        overflow-x: auto; // 启用水平滚动条
+        -webkit-overflow-scrolling: touch; // 使滚动更平滑，适用于触摸设备
+    }
     table {
         width: 100%;
         border-collapse: collapse;
         margin: 20px 0;
         font-size: 1em;
-        font-family: $font-stack;
         min-width: 400px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-
+        font-family: $mono-font-family;
+        font-size: 13px;
         th,
         td {
             padding: 12px 15px;
@@ -182,6 +195,7 @@ a {
         padding: 2px 4px;
         border-radius: 4px;
         font-family: $mono-font-family;
+        font-size: 13px;
     }
 
     pre {

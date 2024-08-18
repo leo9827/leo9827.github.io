@@ -11,8 +11,8 @@ one = "历史文章"
 other = "历史文章"
 
 [reading_time]
-one = "1 分钟"
-other = "{{ .Count }} 分钟"
+one = "预计阅读时间 1 分钟"
+other = "预计阅读时间 {{ .Count }} 分钟"
 
 [word_count]
 one = "字"

@@ -11,8 +11,8 @@ one = "archive"
 other = "archives"
 
 [reading_time]
-one = "1 minute"
-other = "{{ .Count }} min"
+one = "reading time 1 minute"
+other = "reading time {{ .Count }} min"
 
 [word_count]
 one = "1 word"

@@ -5,6 +5,8 @@ license_url = "https://opensource.org/licenses/MIT"
 description = "A Hugo theme for my website"
 homepage = "https://example.com"
 custom404 = "404.html"
+[markup.goldmark.renderer]
+  unsafe = true
 
 [[menu.main]]
 name = "Posts"

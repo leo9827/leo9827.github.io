@@ -1,0 +1,5 @@
+{{- $content := .Content -}}
+{{- $plain := plainify $content -}}
+{{- $words := split $plain "" -}}
+{{- $wordCount := len $words -}}
+{{- i18n "word_count" (dict "Count" $wordCount) -}}

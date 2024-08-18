@@ -226,6 +226,12 @@ body {
           background-color: #555; }
         body.dark-mode .post table tbody tr:hover {
           background-color: #666; }
+      body.dark-mode .post code {
+        background-color: #444;
+        color: #ffcc99; }
+      body.dark-mode .post pre {
+        background-color: #444;
+        color: #ffcc99; }
     body.dark-mode footer {
       background-color: #333;
       color: #fff; }
@@ -281,14 +287,18 @@ a {
   max-width: 891px;
   margin: 0 auto 10px;
   text-align: start; }
+  .post .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; }
   .post table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 1em;
-    font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    font-size: 13px; }
     .post table th,
     .post table td {
       padding: 12px 15px;
@@ -306,7 +316,8 @@ a {
     color: #c7254e;
     padding: 2px 4px;
     border-radius: 4px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    font-size: 13px; }
   .post pre {
     background-color: #f4f4f4;
     padding: 10px;
