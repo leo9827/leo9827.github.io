@@ -41,6 +41,10 @@
 
     <section class="post-content">{{ .Content }}</section>
 
+    <br/>
+    {{- partial "author.html" . -}}
+
+    <hr/>
     {{/*  page  */}}
     {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
     {{ if and (gt (len $pages) 1) (in $pages . ) }}

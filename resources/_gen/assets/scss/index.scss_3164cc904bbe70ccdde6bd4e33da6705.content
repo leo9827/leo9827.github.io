@@ -18,7 +18,7 @@
 .header-brand {
   line-height: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  width: 134px; }
+  width: 80px; }
 
 .header-nav {
   font-weight: 700;
@@ -113,8 +113,6 @@ footer {
 
 body {
   font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  margin: 0;
-  padding: 0;
   background-color: #f8f8f8;
   min-height: 100vh;
   display: flex;
@@ -137,7 +135,8 @@ body {
       backdrop-filter: blur(10px); }
     body.dark-mode .theme-switch {
       color: #fff; }
-    body.dark-mode .read-more, body.dark-mode .read-more-posts {
+    body.dark-mode .read-more,
+    body.dark-mode .read-more-posts {
       background-color: #333;
       color: #fff;
       border-width: 0ex 0ex 0.5ex; }
@@ -148,41 +147,95 @@ a {
   a:hover {
     color: #6c63ff; }
 
-.wrapper {
-  margin: 2px auto;
-  padding: 20px;
-  text-align: center;
-  flex: 1; }
-
 .recent-posts {
   margin: 2px auto;
-  padding: 20px;
+  padding: 10px 20px;
   max-width: 891px;
   flex: 1; }
 
 .recent-post-title {
   margin: 20px;
-  padding: 20px;
+  padding: 10px 40px;
   text-align: start;
   width: 81%;
-  max-width: 931px;
   flex: 1; }
 
 .recent-post {
   margin: 20px;
-  padding: 20px;
+  padding: 10px 40px;
   text-align: start;
   width: 81%;
-  max-width: 931px;
+  flex: 1; }
+
+.wrapper {
+  margin: 2px auto;
+  padding: 10px 20px;
+  text-align: center;
+  max-width: 891px;
   flex: 1; }
 
 .post {
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 8px;
   width: 81%;
   max-width: 891px;
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
   text-align: start; }
+  .post table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); }
+    .post table th,
+    .post table td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left; }
+    .post table th {
+      background-color: #f4f4f4;
+      color: #333; }
+    .post table tbody tr:nth-of-type(even) {
+      background-color: #f9f9f9; }
+    .post table tbody tr:hover {
+      background-color: #f1f1f1; }
+  .post code {
+    background-color: #f4f4f4;
+    color: #c7254e;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+  .post pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto; }
+  .post pre code {
+    background-color: transparent;
+    padding: 0; }
+  .post ul {
+    list-style-type: none;
+    padding-left: 2em; }
+    .post ul li {
+      position: relative; }
+      .post ul li::before {
+        content: '-';
+        position: absolute;
+        left: -1.5em;
+        margin-right: 4px; }
+      .post ul li ul {
+        padding-left: 1.5em; }
+  .post blockquote {
+    border-left: 4px solid #ccc;
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+    color: #555;
+    font-style: italic; }
+    .post blockquote p {
+      margin: 0; }
 
 /* 默认浅色模式 */
 .read-more {

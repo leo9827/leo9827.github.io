@@ -4,10 +4,10 @@ $dark-text-color: #fff;
 $link-color: #01010b;
 $link-hover-color: #6c63ff;
 $dark-link-hover-color: #221d8c;
-$wrapper-padding: 20px;
+$wrapper-padding: 10px 20px;
 $post-width: 81%;
 $post-max-width: 891px;
-$post-padding: 20px;
+$post-padding: 10px 20px;
 $post-border-radius: 8px;
 $footer-bg-color: #f2f2f2;
 $footer-text-color: #555;
@@ -30,8 +30,6 @@ $blur-filter: blur(10px);
 
 body {
     font-family: $font-stack;
-    margin: 0;
-    padding: 0;
     background-color: #f8f8f8;
     min-height: 100vh;
     display: flex;
@@ -67,13 +65,16 @@ body {
         .theme-switch {
             color: $dark-text-color;
         }
-        .read-more, .read-more-posts {
+
+        .read-more,
+        .read-more-posts {
             // border: 1px solid #ddd;
             background-color: $dark-bg-color;
             color: $dark-text-color;
             border-width: 0ex 0ex 0.5ex;
         }
     }
+
 }
 
 a {
@@ -85,12 +86,6 @@ a {
     }
 }
 
-.wrapper {
-    margin: 2px auto;
-    padding: $wrapper-padding;
-    text-align: center;
-    flex: 1;
-}
 .recent-posts {
     margin: 2px auto;
     padding: $wrapper-padding;
@@ -100,19 +95,25 @@ a {
 
 .recent-post-title {
     margin: 20px;
-    padding: 20px;
+    padding: 10px 40px;
     text-align: start;
     width: $post-width;
-    max-width: 931px;
     flex: 1;
 }
 
 .recent-post {
     margin: 20px;
-    padding: 20px;
+    padding: 10px 40px;
     text-align: start;
     width: $post-width;
-    max-width: 931px;
+    flex: 1;
+}
+
+.wrapper {
+    margin: 2px auto;
+    padding: $wrapper-padding;
+    text-align: center;
+    max-width: 891px;
     flex: 1;
 }
 
@@ -121,8 +122,92 @@ a {
     border-radius: $post-border-radius;
     width: $post-width;
     max-width: $post-max-width;
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     text-align: start;
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1em;
+        font-family: $font-stack;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+        th,
+        td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+    }
+
+    code {
+        background-color: #f4f4f4;
+        color: #c7254e;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-family: $mono-font-family;
+    }
+
+    pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+
+    pre code {
+        background-color: transparent;
+        padding: 0;
+    }
+
+    ul {
+        list-style-type: none; // 移除默认的点样式
+        padding-left: 2em; // 添加左边距以确保缩进效果
+
+        li {
+            position: relative; // 为了定位伪元素
+
+            &::before {
+                content: '-'; // 使用破折号作为列表项前缀
+                position: absolute;
+                left: -1.5em; // 调整位置以确保破折号在左边距外
+                margin-right: 4px; // 添加一些间距
+            }
+
+            ul {
+                padding-left: 1.5em; // 确保子列表也有缩进
+            }
+        }
+    }
+
+    blockquote {
+        border-left: 4px solid #ccc;
+        padding: 10px 20px;
+        margin: 20px 0;
+        background-color: #f9f9f9;
+        color: #555;
+        font-style: italic;
+
+        p {
+            margin: 0;
+        }
+    }
+
 }
 
 /* 默认浅色模式 */
@@ -137,6 +222,7 @@ a {
     font-family: $mono-font-family ;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
+
 /* 默认浅色模式 */
 .read-more-posts {
     background-color: #f6f7f9;
