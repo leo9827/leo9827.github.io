@@ -68,9 +68,10 @@ body {
             color: $dark-text-color;
         }
         .read-more, .read-more-posts {
-            border: 1px solid #ddd;
+            // border: 1px solid #ddd;
             background-color: $dark-bg-color;
             color: $dark-text-color;
+            border-width: 0ex 0ex 0.5ex;
         }
     }
 }
@@ -90,6 +91,30 @@ a {
     text-align: center;
     flex: 1;
 }
+.recent-posts {
+    margin: 2px auto;
+    padding: $wrapper-padding;
+    max-width: 891px;
+    flex: 1;
+}
+
+.recent-post-title {
+    margin: 20px;
+    padding: 20px;
+    text-align: start;
+    width: $post-width;
+    max-width: 931px;
+    flex: 1;
+}
+
+.recent-post {
+    margin: 20px;
+    padding: 20px;
+    text-align: start;
+    width: $post-width;
+    max-width: 931px;
+    flex: 1;
+}
 
 .post {
     padding: $post-padding;
@@ -97,16 +122,16 @@ a {
     width: $post-width;
     max-width: $post-max-width;
     margin: 0 auto 20px;
-    // box-shadow: 8px 10px 14px 0px hsl(205deg, 20%, 94%)
-    text-align: justify;
+    text-align: start;
 }
 
 /* 默认浅色模式 */
 .read-more {
     background-color: #f6f7f9;
     color: #333;
-    border: 0px solid #ddd;
-    padding: 10px 4px;
+    // border: 1px solid #ddd;
+    border-width: 0ex 0ex 0.5ex;
+    padding: 8px 2px;
     border-radius: 5px;
     cursor: pointer;
     font-family: $mono-font-family ;
@@ -116,7 +141,8 @@ a {
 .read-more-posts {
     background-color: #f6f7f9;
     color: #333;
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
+    border-width: 0ex 0ex 0.5ex;
     padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
