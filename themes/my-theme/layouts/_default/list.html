@@ -1,11 +1,11 @@
 {{/* list page template */}}
 {{ define "content" }}
-<div class="blog-wrapper">
+<div class="post-wrapper">
     <div>
-        <div class="blog-list">
+        <div class="post-list">
             {{ range .Paginator.Pages }}
             <article>
-                <div class="blog-card">
+                <div class="post-card">
                     <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
                     {{ partial "meta.html" . }}
                     {{ .Summary }}
@@ -14,12 +14,12 @@
             {{ end -}}
         </div>
         {{ if gt .Paginator.TotalPages 1 }}
-        <div class="paginator">
+        <div class="page-nav">
             {{ if .Paginator.HasPrev }}
-            <a class="prev" href="{{ .Paginator.Prev.URL }}">&larr;&nbsp;&nbsp;Pre Page</a>
+            <a class="page-prev" href="{{ .Paginator.Prev.URL }}">&larr;&nbsp;&nbsp;Pre Page</a>
             {{ end }}
             {{ if .Paginator.HasNext }}
-            <a class="next" href="{{ .Paginator.Next.URL }}">Next Page&nbsp;&nbsp;&rarr;</a>
+            <a class="page-next" href="{{ .Paginator.Next.URL }}">Next Page&nbsp;&nbsp;&rarr;</a>
             {{ end }}
         </div>
         {{ end }}
