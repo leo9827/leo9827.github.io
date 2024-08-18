@@ -1,33 +1,7 @@
 {{/* sigle page template */}}
 {{ define "content" }}
-<style>
-    .page-nav {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-    .page-prev {
-        display: flex;
-        align-items: center;
-    }
-    .page-next {
-        display: flex;
-        align-items: center;
-    }
-    .first-page .page-prev {
-        display: none; /* Hide the previous page link only on the first page */
-    }
-    .first-page .page-next {
-        margin-left: auto; /* Move the next page link to the right */
-    }
-    .last-page .page-prev {
-        margin-right: auto; 
-    }
-    .last-page .page-next {
-        display: none;
-    }
+<div id="post" class="post">
 
-</style>
 <article class="post-single">
     <header class="post-title">
         <h1>{{ .Title }}</h1>
@@ -64,6 +38,7 @@
     {{ end }}
 
 </article>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const pageNav = document.querySelector('.page-nav');

@@ -111,6 +111,80 @@ footer {
   .page-nav.last-page .page-next {
     display: none; }
 
+.archives {
+  margin: 2px 1px;
+  padding: 10px 20px;
+  max-width: 891px;
+  width: 691px;
+  flex: 1;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  text-align: start; }
+  .archives a {
+    color: #01010b;
+    text-decoration: none; }
+    .archives a:hover {
+      color: #6c63ff; }
+
+.archive-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column; }
+
+.archive-year {
+  width: 100%; }
+
+.archive-month {
+  width: 100%; }
+
+.archive-posts {
+  width: 100%; }
+
+.archive-entry {
+  width: 100%; }
+
+.archive-link {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none; }
+
+.tags {
+  margin: 40px 20px;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  width: 690px; }
+
+.tags-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; }
+
+.tags-list li {
+  margin: 0; }
+
+.tags-list a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-width: 0ex 0.5ex 1ex 0.1ex;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  height: 22px;
+  text-align: center; }
+  .tags-list a:hover {
+    background-color: #e9e9e9;
+    border-color: #bbb; }
+
 body {
   font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   background-color: #f8f8f8;
@@ -237,6 +311,44 @@ a {
     .post blockquote p {
       margin: 0; }
 
+.post-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  text-align: start;
+  margin: 2px auto;
+  padding: 10px 20px;
+  max-width: 891px;
+  width: 890px;
+  flex: 1; }
+  .post-list-wrapper .post-list {
+    margin: 20px;
+    padding: 10px 40px;
+    text-align: start;
+    width: 81%;
+    flex: 1; }
+  .post-list-wrapper .post-card-summary {
+    color: #666;
+    /* 设置文字颜色为灰色 */
+    font-size: 14px;
+    /* 设置字体大小 */
+    line-height: 1.5;
+    /* 设置行高 */
+    overflow: hidden;
+    /* 隐藏溢出的内容 */
+    text-overflow: ellipsis;
+    /* 添加省略号 */
+    display: -webkit-box;
+    /* 兼容 WebKit 浏览器 */
+    -webkit-line-clamp: 3;
+    /* 显示的行数 */
+    line-clamp: 3;
+    /* 显示的行数 */
+    -webkit-box-orient: vertical;
+    /* 垂直排列 */ }
+
 /* 默认浅色模式 */
 .read-more {
   background-color: #f6f7f9;
@@ -253,6 +365,7 @@ a {
   background-color: #f6f7f9;
   color: #333;
   border-width: 0ex 0ex 0.5ex;
+  margin-top: 20px;
   padding: 10px 10px;
   border-radius: 5px;
   cursor: pointer;

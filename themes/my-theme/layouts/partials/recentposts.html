@@ -6,7 +6,7 @@
 
   {{ range $featured }}
   <article class="recent-post">
-    <h2><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h2>
+    <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
     {{ partial "meta.html" . }}
     {{ .Summary }} 
     <button class="read-more">

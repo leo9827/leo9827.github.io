@@ -1,28 +1,28 @@
 {{/* list page template */}}
 {{ define "content" }}
-<div class="post-wrapper">
-    <div>
-        <div class="post-list">
-            {{ range .Paginator.Pages }}
-            <article>
-                <div class="post-card">
-                    <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
-                    {{ partial "meta.html" . }}
+<div class="post-list-wrapper">
+    <div class="post-list">
+        {{ range .Paginator.Pages }}
+        <article>
+            <div class="post-card">
+                <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
+                {{ partial "meta.html" . }}
+                <div class="post-card-summary">
                     {{ .Summary }}
                 </div>
-            </article>
-            {{ end -}}
-        </div>
-        {{ if gt .Paginator.TotalPages 1 }}
-        <div class="page-nav">
-            {{ if .Paginator.HasPrev }}
-            <a class="page-prev" href="{{ .Paginator.Prev.URL }}">&larr;&nbsp;&nbsp;Pre Page</a>
-            {{ end }}
-            {{ if .Paginator.HasNext }}
-            <a class="page-next" href="{{ .Paginator.Next.URL }}">Next Page&nbsp;&nbsp;&rarr;</a>
-            {{ end }}
-        </div>
+            </div>
+        </article>
+        {{ end -}}
+    </div>
+    {{ if gt .Paginator.TotalPages 1 }}
+    <div class="page-nav">
+        {{ if .Paginator.HasPrev }}
+        <a class="page-prev" href="{{ .Paginator.Prev.URL }}">&larr;&nbsp;&nbsp;Pre Page</a>
+        {{ end }}
+        {{ if .Paginator.HasNext }}
+        <a class="page-next" href="{{ .Paginator.Next.URL }}">Next Page&nbsp;&nbsp;&rarr;</a>
         {{ end }}
     </div>
+    {{ end }}
 </div>
 {{ end }}

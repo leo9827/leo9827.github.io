@@ -1,0 +1,48 @@
+.archives {
+    margin: 2px 1px;
+    padding: $wrapper-padding;
+    max-width: 891px; // 占满整个 wrapper 的宽度
+    width: 691px;
+    flex: 1;
+    align-items: flex-start; // 确保内容从左对齐
+    display: flex; // 使用 flexbox 布局
+    flex-direction: column; // 垂直排列子元素
+    text-align: start;
+    a {
+        color: $link-color;
+        text-decoration: none;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+}
+
+
+.archive-content {
+    width: 100%; // 确保内容宽度为 100%
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-year {
+    width: 100%; // 确保年份宽度为 100%
+}
+
+.archive-month {
+    width: 100%; // 确保月份宽度为 100%
+}
+
+.archive-posts {
+    width: 100%; // 确保文章列表宽度为 100%
+}
+
+.archive-entry {
+    width: 100%; // 确保文章条目宽度为 100%
+}
+
+.archive-link {
+    display: inline-block; // 确保链接是块级元素
+    color: inherit; // 继承父元素的颜色
+    text-decoration: none; // 移除下划线
+}

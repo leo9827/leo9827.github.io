@@ -5,7 +5,7 @@ tags: ['mindset']
 series: []
 featured: true
 ---
-我正在使用的一些学习方法和理论.
+我正在使用的一些学习方法和理论
 
 <!--more-->
 

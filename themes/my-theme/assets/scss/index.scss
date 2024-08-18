@@ -27,6 +27,8 @@ $blur-filter: blur(10px);
 @import "header";
 @import "footer";
 @import "pagenav";
+@import "archives";
+@import "tags";
 
 body {
     font-family: $font-stack;
@@ -124,7 +126,7 @@ a {
     max-width: $post-max-width;
     margin: 0 auto 10px;
     text-align: start;
-    
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -210,6 +212,38 @@ a {
 
 }
 
+.post-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    text-align: start;
+    margin: 2px auto;
+    padding: $wrapper-padding;
+    max-width: 891px;
+    width: 890px;
+    flex: 1;
+    .post-list {
+        margin: 20px;
+        padding: 10px 40px;
+        text-align: start;
+        width: $post-width;
+        flex: 1;
+    }
+
+    .post-card-summary {
+        color: #666; /* 设置文字颜色为灰色 */
+        font-size: 14px; /* 设置字体大小 */
+        line-height: 1.5; /* 设置行高 */
+        overflow: hidden; /* 隐藏溢出的内容 */
+        text-overflow: ellipsis; /* 添加省略号 */
+        display: -webkit-box; /* 兼容 WebKit 浏览器 */
+        -webkit-line-clamp: 3; /* 显示的行数 */
+        line-clamp: 3; /* 显示的行数 */
+        -webkit-box-orient: vertical; /* 垂直排列 */
+    }
+}
 /* 默认浅色模式 */
 .read-more {
     background-color: #f6f7f9;
@@ -229,6 +263,7 @@ a {
     color: #333;
     // border: 1px solid #ddd;
     border-width: 0ex 0ex 0.5ex;
+    margin-top: 20px;
     padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
