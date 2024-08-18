@@ -1,7 +1,8 @@
 <p>
     <small>
-        {{ .Date | time.Format ":date_long" }}&nbsp;· {{ i18n "word_count" .WordCount -}}&nbsp;· {{ i18n "reading_time"
-        .ReadingTime -}}
+        Post on&nbsp;{{ .Date | time.Format ":date_long" }}&nbsp;
+        ·&nbsp;{{ i18n "word_count" .WordCount -}}&nbsp;
+        ·&nbsp;预计阅读时间 {{ i18n "reading_time" .ReadingTime -}}
     </small>
 
     {{ if .Site.Params.options.showMetaTags -}}
