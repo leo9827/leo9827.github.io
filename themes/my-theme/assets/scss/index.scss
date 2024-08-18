@@ -149,3 +149,17 @@ a {
     font-family: $mono-font-family ;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.notfound {
+    display: flex; // 使用 flexbox 布局
+    flex-direction: column; // 垂直排列子元素
+    align-items: center; // 水平居中
+    justify-content: center; // 垂直居中
+    text-align: center;
+    height: 100vh; // 使容器占满整个视口高度
+
+    .image {
+        transform: scale(0.5);
+        // margin-bottom: 20px; // 添加一些底部间距
+    }
+}

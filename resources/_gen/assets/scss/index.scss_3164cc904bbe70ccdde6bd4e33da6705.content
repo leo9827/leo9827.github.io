@@ -17,12 +17,14 @@
 
 .header-brand {
   line-height: 1;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  width: 134px; }
 
 .header-nav {
   font-weight: 700;
   align-items: center;
-  display: flex; }
+  display: flex;
+  min-width: none; }
   .header-nav ul {
     list-style-type: none;
     margin: 0;
@@ -35,11 +37,25 @@
         color: inherit;
         text-decoration: none;
         transition: color 0.3s ease;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        position: relative; }
+        .header-nav ul li a::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -0.5ex;
+          width: 100%;
+          height: 0.5ex;
+          background-color: #6c63ff;
+          transform: scaleX(0);
+          transition: transform 0.3s ease; }
+      .header-nav ul li:hover a::after {
+        transform: scaleX(1); }
 
 .header-social-icons {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  width: 134px; }
   .header-social-icons a {
     color: inherit;
     margin: 8px;
@@ -189,3 +205,13 @@ a {
   cursor: pointer;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh; }
+  .notfound .image {
+    transform: scale(0.5); }
