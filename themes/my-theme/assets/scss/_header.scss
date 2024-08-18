@@ -1,0 +1,87 @@
+.header-main {
+    margin: 2px auto;
+    height: $header-height;
+    padding: $header-padding;
+    display: flex;
+    text-align: center;
+    top: 0;
+}
+
+.header-inner {
+    margin: 0 auto;
+    background-color: transparent;
+    box-shadow: none;
+    align-items: center;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: $header-grid-template;
+    height: 100%;
+}
+
+
+.header-brand {
+    line-height: 1;
+    font-family: $header-brand-font;
+}
+
+.header-nav {
+    font-weight: $header-nav-font-weight;
+    align-items: center;
+    display: flex;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        li {
+            margin: $header-nav-item-margin;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.3s ease;
+                font-family: $header-brand-font;
+            }
+        }
+    }
+}
+
+.header-social-icons {
+    display: flex;
+    align-items: center;
+
+    a {
+        color: inherit;
+        margin: $header-social-icon-margin;
+        transition: color 0.3s ease;
+    }
+}
+
+.theme-switch {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    svg {
+        width: $theme-switch-icon-size;
+        height: $theme-switch-icon-size;
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 868px) {
+    .header-main {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .header-inner {
+        grid-template-columns: $header-grid-template;
+    }
+}

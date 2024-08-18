@@ -1,4 +1,4 @@
-[blog]
+[posts]
 one = "post"
 other = "post"
 
@@ -10,10 +10,6 @@ other = "tags"
 one = "archive"
 other = "archive"
 
-[series]
-one = "series"
-other = "series"
-
 [reading_time]
 one = "1 minute"
 other = "{{ .Count }} min"
@@ -23,6 +19,7 @@ one = "1 word"
 other = "{{ .Count }} words"
 
 [related_posts]
+one = "Related posts"
 other = "Related posts"
 
 [recent_posts]

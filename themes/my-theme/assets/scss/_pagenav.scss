@@ -1,0 +1,31 @@
+.page-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .page-prev,
+    .page-next {
+        display: flex;
+        align-items: center;
+    }
+
+    &.first-page {
+        .page-prev {
+            display: none;
+        }
+
+        .page-next {
+            margin-left: auto;
+        }
+    }
+
+    &.last-page {
+        .page-prev {
+            margin-right: auto;
+        }
+
+        .page-next {
+            display: none;
+        }
+    }
+}

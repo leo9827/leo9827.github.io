@@ -12,14 +12,14 @@ enableRobotsTXT: true
 enableEmoji: true
 pygmentsUseClasses: true
 paginate: 10
-copyright: "2023 leo9827 All rights reserved"
+copyright: "leo9827 personal site. All rights reserved"
 params:
   brand: '~/'
   avatarURL: /android-chrome-192x192.png
   author: leo9827
   authorDescription: "Hi there, 👋 Welcome! I'm leo9827, Find my way and inner peace."
   info: God, Grant me  the SERENITY, to accept the things I cannot change, COURAGE to change the things I can, and  the WISDOM to know the difference.
-  favicon: /favicon.ico
+  # favicon: /favicon.ico
   options:
     showDarkMode: true
     enableImgZooming: true
@@ -78,8 +78,8 @@ languages:
     languageName: EN
     menu:
       main:
-        - name: Blog
-          url: /blog
+        - name: Posts
+          url: /post
           weight: 1
         - name: Tags
           url: /tags
@@ -87,21 +87,15 @@ languages:
         - name: Archive
           url: /archives
           weight: 3
-        - name: Guestbook
-          url: /guestbook
+        - name: Comments
+          url: /comments
           weight: 4
-        - name: Chatgpt
-          url: /chatgpt
-          weight: 5
-        - name: Claude
-          url: /claude
-          weight: 6
   zh:
     languageName: 中
     menu:
       main:
         - name: 文章
-          url: /blog
+          url: /post
           weight: 1
         - name: 分类
           url: /tags
@@ -110,14 +104,8 @@ languages:
           url: /archives
           weight: 3
         - name: 留言板
-          url: /guestbook
+          url: /comments
           weight: 4
-        - name: Chatgpt
-          url: /chatgpt
-          weight: 5
-        - name: Claude
-          url: /claude
-          weight: 6
 taxonomies:
   series: series
   tag: tags

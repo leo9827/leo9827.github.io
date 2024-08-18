@@ -1,0 +1,171 @@
+@charset "UTF-8";
+.header-main {
+  margin: 2px auto;
+  height: 40px;
+  padding: 20px auto;
+  display: flex;
+  text-align: center;
+  top: 0; }
+
+.header-inner {
+  margin: 0 auto;
+  background-color: transparent;
+  box-shadow: none;
+  align-items: center;
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: 1fr auto auto;
+  height: 100%; }
+
+.header-brand {
+  line-height: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+
+.header-nav {
+  font-weight: 700;
+  align-items: center;
+  display: flex; }
+  .header-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center; }
+    .header-nav ul li {
+      margin: 10px; }
+      .header-nav ul li a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace; }
+
+.header-social-icons {
+  display: flex;
+  align-items: center; }
+  .header-social-icons a {
+    color: inherit;
+    margin: 8px;
+    transition: color 0.3s ease; }
+
+.theme-switch {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease; }
+  .theme-switch svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px; }
+
+@media (max-width: 868px) {
+  .header-main {
+    flex-direction: row;
+    align-items: flex-start; }
+  .header-inner {
+    grid-template-columns: 1fr auto auto; } }
+
+footer {
+  background-color: #f2f2f2;
+  color: #555;
+  padding: 1px;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); }
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; }
+  .page-nav .page-prev,
+  .page-nav .page-next {
+    display: flex;
+    align-items: center; }
+  .page-nav.first-page .page-prev {
+    display: none; }
+  .page-nav.first-page .page-next {
+    margin-left: auto; }
+  .page-nav.last-page .page-prev {
+    margin-right: auto; }
+  .page-nav.last-page .page-next {
+    display: none; }
+
+body {
+  font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; }
+  body.dark-mode {
+    background-color: #333;
+    color: #fff; }
+    body.dark-mode a {
+      color: #fff; }
+      body.dark-mode a:hover {
+        color: #221d8c; }
+    body.dark-mode .post {
+      box-shadow: 0px 4px 1px 0px rgba(255, 255, 255, 0.1); }
+    body.dark-mode footer {
+      background-color: #333;
+      color: #fff; }
+    body.dark-mode .header-main {
+      background-color: transparent;
+      box-shadow: none;
+      backdrop-filter: blur(10px); }
+    body.dark-mode .theme-switch {
+      color: #fff; }
+    body.dark-mode .read-more, body.dark-mode .read-more-posts {
+      border: 1px solid #ddd;
+      background-color: #333;
+      color: #fff; }
+
+a {
+  color: #01010b;
+  text-decoration: none; }
+  a:hover {
+    color: #6c63ff; }
+
+.wrapper {
+  margin: 2px auto;
+  padding: 20px;
+  text-align: center;
+  flex: 1; }
+
+.post {
+  padding: 20px;
+  border-radius: 8px;
+  width: 81%;
+  max-width: 891px;
+  margin: 0 auto 20px;
+  text-align: justify; }
+
+/* 默认浅色模式 */
+.read-more {
+  background-color: #f6f7f9;
+  color: #333;
+  border: 0px solid #ddd;
+  padding: 10px 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+
+/* 默认浅色模式 */
+.read-more-posts {
+  background-color: #f6f7f9;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }

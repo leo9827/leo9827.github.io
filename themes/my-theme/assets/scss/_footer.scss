@@ -1,0 +1,14 @@
+
+footer {
+    background-color: $footer-bg-color;
+    color: $footer-text-color;
+    padding: 1px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    box-shadow: none;
+    backdrop-filter: $blur-filter;
+    -webkit-backdrop-filter: $blur-filter;
+}

@@ -1,4 +1,4 @@
-[blog]
+[posts]
 one = "文章"
 other = "文章"
 
@@ -9,10 +9,6 @@ other = "分类"
 [archive]
 one = "历史文章"
 other = "历史文章"
-
-[series]
-one = "系列文章"
-other = "系列文章"
 
 [reading_time]
 one = "1 分钟"
@@ -26,6 +22,6 @@ other = "{{ .Count }} 字"
 one = "相关推荐"
 other = "相关推荐"
 
-[featured_posts]
+[recent_posts]
 one = "最近更新"
 other = "最近更新"

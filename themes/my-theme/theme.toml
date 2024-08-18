@@ -4,5 +4,3 @@ license = "MIT"
 license_url = "https://opensource.org/licenses/MIT"
 description = "A Hugo theme for my website"
 homepage = "https://example.com"
-# tags = ["blog", "portfolio"]
-# features = ["blog", "portfolio"]
