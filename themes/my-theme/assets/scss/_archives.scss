@@ -2,7 +2,7 @@
     margin: 2px 1px;
     padding: $wrapper-padding;
     max-width: 891px; // 占满整个 wrapper 的宽度
-    width: 691px;
+    width: 770px;
     flex: 1;
     align-items: flex-start; // 确保内容从左对齐
     display: flex; // 使用 flexbox 布局
@@ -18,9 +18,8 @@
     }
 }
 
-
 .archive-content {
-    width: 100%; // 确保内容宽度为 100%
+    width: 95%; // 确保内容宽度为 100%
     display: flex;
     flex-direction: column;
 }
@@ -35,6 +34,7 @@
 
 .archive-posts {
     width: 100%; // 确保文章列表宽度为 100%
+    margin: 10px;
 }
 
 .archive-entry {

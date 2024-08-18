@@ -10,6 +10,12 @@
                 <div class="post-card-summary">
                     {{ .Summary }}
                 </div>
+                <button class="read-more">
+                    <a class="archive-link" aria-label="post link to {{ .Title | plainify }}"
+                        href="{{ .Permalink }}">
+                        Read it...
+                    </a>
+                </button>
             </div>
         </article>
         {{ end -}}

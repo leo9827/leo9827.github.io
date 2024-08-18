@@ -217,7 +217,7 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
-    padding: 20px;
+    padding: 10px 20px;
     text-align: start;
     margin: 2px auto;
     padding: $wrapper-padding;
@@ -225,7 +225,7 @@ a {
     width: 890px;
     flex: 1;
     .post-list {
-        margin: 20px;
+        margin: 10px 20px;
         padding: 10px 40px;
         text-align: start;
         width: $post-width;

@@ -5,3 +5,18 @@ license_url = "https://opensource.org/licenses/MIT"
 description = "A Hugo theme for my website"
 homepage = "https://example.com"
 custom404 = "404.html"
+
+[[menu.main]]
+name = "Posts"
+url = "/posts"
+weight = 1
+
+[[menu.main]]
+name = "Archives"
+url = "/archives"
+weight = 2
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 3

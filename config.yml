@@ -6,13 +6,15 @@ license: MIT
 licenselink: 'https://github.com/guangzhengli/hugo-theme-ladder/blob/master/LICENSE'
 description: 'Find my way and inner peace'
 homepage: 'https://leo9827.github.io'
-defaultContentLanguage: 'zh'
+defaultContentLanguage: 'en'
 enableInlineShortcodes: true
 enableRobotsTXT: true
 enableEmoji: true
 pygmentsUseClasses: true
 paginate: 10
 copyright: "leo9827 personal site. All rights reserved"
+permalinks:
+  post: /posts/:slug/
 params:
   brand: '~/'
   avatarURL: /android-chrome-192x192.png
@@ -79,7 +81,7 @@ languages:
     menu:
       main:
         - name: Posts
-          url: /post
+          url: /posts
           weight: 1
         - name: Tags
           url: /tags
@@ -95,7 +97,7 @@ languages:
     menu:
       main:
         - name: 文章
-          url: /post
+          url: /posts
           weight: 1
         - name: 分类
           url: /tags

@@ -1,14 +1,14 @@
 [posts]
 one = "post"
-other = "post"
+other = "posts"
 
 [tags]
 one = "tag"
 other = "tags"
 
-[archive]
+[archives]
 one = "archive"
-other = "archive"
+other = "archives"
 
 [reading_time]
 one = "1 minute"
