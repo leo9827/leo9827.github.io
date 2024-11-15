@@ -12,14 +12,14 @@
     align-items: center;
     display: flex; // 使用 flexbox 布局
     justify-content: space-between; // 子元素之间均匀分布
-    max-width: 931px;
+    max-width: 831px;
     position: relative;
 }
 
 .header-brand {
     line-height: 1;
     font-family: $header-brand-font;
-    width: 80px;
+    width: 40px;
 }
 
 .header-nav {

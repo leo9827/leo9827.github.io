@@ -1,61 +1,46 @@
 import * as params from '@params';
 
-const globalDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-const localMode = localStorage.getItem('theme');
+// Debug utility
+const debug = (message) => console.log(`[DarkMode Debug] ${message}`);
 
-if (globalDark && (localMode === null)) {
-  localStorage.setItem('theme', 'dark');
-  document.documentElement.setAttribute('data-dark-mode', '');
-}
+// SVG icons
+const sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>';
+const moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>';
 
-if (globalDark && (localMode === 'dark')) {
-  document.documentElement.setAttribute('data-dark-mode', '');
-}
+document.addEventListener("DOMContentLoaded", function() {
+  const themeSwitch = document.querySelector('.theme-switch');
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-if (localMode === 'dark') {
-  document.documentElement.setAttribute('data-dark-mode', '');
-}
-
-const mode = document.getElementById('mode');
-
-if (mode !== null) {
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    if (event.matches) {
-      localStorage.setItem('theme', 'dark');
-      document.documentElement.setAttribute(params.darkModeTheme, '');
+  function applyTheme(isDark) {
+    debug(`Applying theme: ${isDark ? 'dark' : 'light'}`);
+    if (isDark) {
+      document.documentElement.setAttribute('data-dark-mode', '');
+      themeSwitch.innerHTML = moonIcon;
     } else {
-      localStorage.setItem('theme', 'light');
-      document.documentElement.removeAttribute(params.darkModeTheme);
+      document.documentElement.removeAttribute('data-dark-mode');
+      themeSwitch.innerHTML = sunIcon;
     }
-  })
+  }
 
-  mode.addEventListener('click', () => {
-    document.documentElement.toggleAttribute(params.darkModeTheme);
-    localStorage.setItem('theme', document.documentElement.hasAttribute(params.darkModeTheme) ? 'dark' : 'light');
-    changeCommentsTheme();
+  function initializeTheme() {
+    const isDark = darkModeMediaQuery.matches;
+    debug(`Initializing theme: ${isDark ? 'dark' : 'light'}`);
+    applyTheme(isDark);
+  }
+
+  function toggleTheme() {
+    const isDark = !document.documentElement.hasAttribute('data-dark-mode');
+    debug(`Manually toggling theme to: ${isDark ? 'dark' : 'light'}`);
+    applyTheme(isDark);
+  }
+
+  // 初始化
+  initializeTheme();
+
+  // 事件监听
+  themeSwitch.addEventListener('click', toggleTheme);
+  darkModeMediaQuery.addEventListener('change', (e) => {
+    debug(`System theme changed to: ${e.matches ? 'dark' : 'light'}`);
+    applyTheme(e.matches);
   });
-
-  if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.setAttribute(params.darkModeTheme, '');
-  } else {
-    document.documentElement.removeAttribute(params.darkModeTheme);
-  }
-}
-
-function changeCommentsTheme () {
-  if (document.querySelector('.utterances-frame')) {
-    let theme = 'github-light';
-    if (localStorage.getItem('theme') === 'dark') {
-      theme = 'github-dark'
-      if (params.darkModeTheme === 'icy-dark-mode') {
-        theme = 'icy-dark'
-      }
-    }
-    const message = {
-      type: 'set-theme',
-      theme: theme
-    };
-    const iframe = document.querySelector('.utterances-frame');
-    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
-  }
-}
+});
