@@ -1,4 +1,273 @@
 @charset "UTF-8";
+.hero {
+  padding: 4rem 0;
+  text-align: center;
+  background: linear-gradient(to right, var(--bg-color), var(--bg-secondary)); }
+  .hero .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem; }
+  .hero .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color); }
+  .hero .hero-description {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary); }
+  .hero .hero-quote {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 2rem; }
+  .hero .hero-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; }
+    .hero .hero-social .social-link {
+      color: var(--text-color);
+      transition: color 0.3s ease; }
+      .hero .hero-social .social-link:hover {
+        color: var(--primary-color); }
+
+.featured-posts {
+  padding: 4rem 0; }
+  .featured-posts .section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--text-color); }
+  .featured-posts .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem; }
+  .featured-posts .featured-card {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .featured-posts .featured-card:hover {
+      transform: translateY(-5px); }
+    .featured-posts .featured-card .featured-image {
+      height: 200px;
+      overflow: hidden; }
+      .featured-posts .featured-card .featured-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+    .featured-posts .featured-card .featured-content {
+      padding: 1.5rem; }
+      .featured-posts .featured-card .featured-content h3 {
+        margin-bottom: 1rem; }
+        .featured-posts .featured-card .featured-content h3 a {
+          color: var(--text-color);
+          text-decoration: none; }
+          .featured-posts .featured-card .featured-content h3 a:hover {
+            color: var(--primary-color); }
+      .featured-posts .featured-card .featured-content p {
+        margin: 1rem 0;
+        color: var(--text-secondary); }
+      .featured-posts .featured-card .featured-content .read-more {
+        display: inline-block;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500; }
+        .featured-posts .featured-card .featured-content .read-more:hover {
+          text-decoration: underline; }
+
+.recent-posts {
+  padding: 4rem 0;
+  background: var(--bg-secondary); }
+  .recent-posts .section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--text-color); }
+  .recent-posts .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem; }
+  .recent-posts .post-card {
+    background: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .recent-posts .post-card:hover {
+      transform: translateY(-5px); }
+    .recent-posts .post-card .post-image {
+      height: 200px;
+      overflow: hidden; }
+      .recent-posts .post-card .post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+    .recent-posts .post-card .post-content {
+      padding: 1.5rem; }
+      .recent-posts .post-card .post-content h3 {
+        margin-bottom: 1rem; }
+        .recent-posts .post-card .post-content h3 a {
+          color: var(--text-color);
+          text-decoration: none; }
+          .recent-posts .post-card .post-content h3 a:hover {
+            color: var(--primary-color); }
+      .recent-posts .post-card .post-content p {
+        margin: 1rem 0;
+        color: var(--text-secondary); }
+      .recent-posts .post-card .post-content .read-more {
+        display: inline-block;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500; }
+        .recent-posts .post-card .post-content .read-more:hover {
+          text-decoration: underline; }
+  .recent-posts .view-all {
+    text-align: center;
+    margin-top: 3rem; }
+    .recent-posts .view-all .view-all-button {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease; }
+      .recent-posts .view-all .view-all-button:hover {
+        background: var(--primary-color-dark); }
+
+.posts-list {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1rem; }
+  .posts-list .year-group {
+    width: 100%;
+    margin-bottom: 4rem; }
+    .posts-list .year-group .year-title {
+      font-size: 2.2rem;
+      color: var(--text-color);
+      margin-bottom: 2rem;
+      font-weight: normal;
+      position: relative;
+      padding-bottom: 0.5rem;
+      font-family: 'Noto Serif SC', serif;
+      text-align: left; }
+      .posts-list .year-group .year-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 3rem;
+        height: 2px;
+        background-color: var(--text-secondary);
+        opacity: 0.5; }
+  .posts-list .month-group {
+    width: 100%;
+    margin-bottom: 2.5rem; }
+    .posts-list .month-group .month-title {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.2rem;
+      font-weight: normal;
+      opacity: 0.8;
+      font-family: 'Noto Serif SC', serif;
+      text-align: left; }
+  .posts-list .post-list {
+    width: 100%;
+    padding: 0;
+    margin: 0; }
+    .posts-list .post-list .post-item {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      transition: transform 0.2s ease;
+      font-family: 'Noto Serif SC', serif;
+      text-align: left; }
+      .posts-list .post-list .post-item:hover {
+        transform: translateX(5px); }
+      .posts-list .post-list .post-item .post-date {
+        color: var(--text-secondary);
+        font-family: 'Noto Serif SC', serif;
+        font-size: 1em;
+        margin-right: 1.5rem;
+        min-width: 110px;
+        opacity: 0.8;
+        text-align: left; }
+      .posts-list .post-list .post-item .post-link {
+        flex: 1;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        position: relative;
+        padding-bottom: 2px;
+        font-weight: normal;
+        font-family: 'Noto Serif SC', serif;
+        text-align: left; }
+        .posts-list .post-list .post-item .post-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background-color: var(--primary-color);
+          transition: width 0.2s ease; }
+        .posts-list .post-list .post-item .post-link:hover {
+          color: var(--primary-color); }
+          .posts-list .post-list .post-item .post-link:hover::after {
+            width: 100%; }
+
+body.dark-mode .posts-list .year-title {
+  color: var(--text-color); }
+  body.dark-mode .posts-list .year-title::after {
+    background-color: var(--text-secondary); }
+
+body.dark-mode .posts-list .month-title {
+  color: var(--text-secondary); }
+
+body.dark-mode .posts-list .post-item .post-date {
+  color: var(--text-secondary); }
+
+body.dark-mode .posts-list .post-item .post-link {
+  color: var(--text-color); }
+  body.dark-mode .posts-list .post-item .post-link:hover {
+    color: var(--primary-color); }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0; }
+    .hero .hero-title {
+      font-size: 2rem; }
+    .hero .hero-description {
+      font-size: 1rem; }
+  .featured-grid,
+  .posts-grid {
+    grid-template-columns: 1fr; }
+  .posts-list {
+    padding: 2rem 1rem; }
+    .posts-list .year-group {
+      margin-bottom: 3rem; }
+      .posts-list .year-group .year-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem; }
+    .posts-list .month-group {
+      margin-bottom: 2rem; }
+      .posts-list .month-group .month-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem; }
+    .posts-list .post-item {
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+      font-size: 1rem; }
+      .posts-list .post-item .post-date {
+        margin-bottom: 0.3rem;
+        min-width: auto; } }
+
 .header-main {
   margin: 2px 10px;
   text-align: center;
@@ -17,7 +286,7 @@
 
 .header-brand {
   line-height: 1;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  font-family: "Noto Serif SC", serif;
   width: 40px; }
 
 .header-nav {
@@ -37,7 +306,7 @@
         color: inherit;
         text-decoration: none;
         transition: color 0.3s ease;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        font-family: "Noto Serif SC", serif;
         position: relative; }
         .header-nav ul li a::after {
           content: '';
@@ -201,7 +470,7 @@ footer {
       border-color: #666; }
 
 body {
-  font-family: -apple-system, ui-sans-serif, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: "Noto Serif SC", serif;
   background-color: #f8f8f8;
   min-height: 100vh;
   display: flex;
@@ -271,14 +540,17 @@ a {
   padding: 10px 40px;
   text-align: start;
   width: 81%;
-  flex: 1; }
+  flex: 1;
+  font-family: "Noto Serif SC", serif; }
 
 .wrapper {
-  margin: 2px auto;
-  padding: 10px 20px;
+  margin: 0 auto;
+  padding: 0;
   text-align: center;
-  max-width: 891px;
-  flex: 1; }
+  max-width: 760px;
+  width: 100%;
+  flex: 1;
+  font-family: "Noto Serif SC", serif; }
 
 .post {
   padding: 10px 20px;
@@ -286,7 +558,10 @@ a {
   width: 81%;
   max-width: 891px;
   margin: 0 auto 10px;
-  text-align: start; }
+  text-align: start;
+  font-family: "Noto Serif SC", serif;
+  font-size: 1.1rem;
+  line-height: 1.8; }
   .post .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
@@ -297,8 +572,8 @@ a {
     font-size: 1em;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    font-size: 13px; }
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.9em; }
     .post table th,
     .post table td {
       padding: 12px 15px;
@@ -316,16 +591,22 @@ a {
     color: #c7254e;
     padding: 2px 4px;
     border-radius: 4px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    font-size: 13px; }
+    font-family: "SF Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+    font-feature-settings: "liga" 1, "calt" 1; }
   .post pre {
     background-color: #f4f4f4;
-    padding: 10px;
+    padding: 1em;
     border-radius: 4px;
-    overflow-x: auto; }
-  .post pre code {
-    background-color: transparent;
-    padding: 0; }
+    overflow-x: auto;
+    font-family: "SF Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    font-feature-settings: "liga" 1, "calt" 1; }
+    .post pre code {
+      background-color: transparent;
+      padding: 0;
+      font-size: 1em; }
   .post ul {
     list-style-type: none;
     padding-left: 2em; }
@@ -353,38 +634,30 @@ a {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
-  padding: 10px 20px;
   text-align: start;
-  margin: 2px auto;
-  padding: 10px 20px;
-  max-width: 891px;
-  width: 890px;
-  flex: 1; }
+  margin: 0 auto;
+  padding: 0;
+  max-width: 760px;
+  width: 100%;
+  flex: 1;
+  font-family: "Noto Serif SC", serif; }
   .post-list-wrapper .post-list {
-    margin: 10px 20px;
-    padding: 10px 40px;
+    margin: 0;
+    padding: 0;
     text-align: start;
-    width: 81%;
-    flex: 1; }
+    width: 100%;
+    flex: 1;
+    font-family: "Noto Serif SC", serif; }
   .post-list-wrapper .post-card-summary {
     color: #666;
-    /* 设置文字颜色为灰色 */
     font-size: 14px;
-    /* 设置字体大小 */
     line-height: 1.5;
-    /* 设置行高 */
     overflow: hidden;
-    /* 隐藏溢出的内容 */
     text-overflow: ellipsis;
-    /* 添加省略号 */
     display: -webkit-box;
-    /* 兼容 WebKit 浏览器 */
     -webkit-line-clamp: 3;
-    /* 显示的行数 */
     line-clamp: 3;
-    /* 显示的行数 */
-    -webkit-box-orient: vertical;
-    /* 垂直排列 */ }
+    -webkit-box-orient: vertical; }
 
 /* 默认浅色模式 */
 .read-more {
@@ -394,7 +667,8 @@ a {
   padding: 8px 2px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  font-family: "Noto Serif SC", serif;
+  font-size: 0.9em;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
 
 /* 默认浅色模式 */
@@ -406,7 +680,8 @@ a {
   padding: 10px 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  font-family: "Noto Serif SC", serif;
+  font-size: 0.9em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
 
 .notfound {

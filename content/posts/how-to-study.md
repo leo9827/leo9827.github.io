@@ -1,5 +1,5 @@
 ---
-date: 2024-04-01T23:04:53+08:00
+date: 2024-03-23T23:04:53+08:00
 title: "How to study"
 description: ""
 tags: []

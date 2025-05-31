@@ -11,7 +11,8 @@ enableInlineShortcodes: true
 enableRobotsTXT: true
 enableEmoji: true
 pygmentsUseClasses: true
-paginate: 10
+pagination:
+  pagerSize: 10
 copyright: "leo9827 personal site. All rights reserved"
 permalinks:
   post: /posts/:slug/
